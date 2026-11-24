@@ -1,662 +1,502 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zul Labs — Satu studio, empat pintu</title>
-<meta name="description" content="Zul Labs membuat video, aplikasi, alat kerja digital, dan cetak 3D. Satu studio, empat pintu.">
-<link rel="canonical" href="https://zullabs.co.id/">
-<meta name="theme-color" content="#0a0a0b">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Zul Labs">
-<meta property="og:title" content="Zul Labs — Satu studio, empat pintu">
-<meta property="og:description" content="Video, aplikasi, alat kerja digital, dan cetak 3D. PT Zul Labs Teknologi.">
-<meta property="og:url" content="https://zullabs.co.id/">
-<meta property="og:image" content="https://zullabs.co.id/media/noor.jpg">
-<meta property="og:locale" content="id_ID">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Organization","@id":"https://zullabs.co.id/#org","name":"PT Zul Labs Teknologi","legalName":"PT ZUL LABS TEKNOLOGI","alternateName":"Zul Labs","url":"https://zullabs.co.id/","logo":"https://zullabs.co.id/assets/favicon.svg","foundingDate":"2026-10-18","identifier":[{"@type":"PropertyValue","propertyID":"NIB","value":"1810260016169"}],"address":{"@type":"PostalAddress","streetAddress":"Jl. KH Dewantara Blok C11 RT/RW 001/001, Kel. Pandan Wangi, Kec. Pandan","postalCode":"22611","addressLocality":"Pandan, Kabupaten Tapanuli Tengah","addressRegion":"Sumatera Utara","addressCountry":"ID"},"email":"admin@zullabs.co.id","telephone":"+62-812-7128-4888","sameAs":["https://www.instagram.com/zullabs.id/","https://www.youtube.com/@zullabs"]}
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#0a0a0b; --bg2:#111112; --ink:#ece8df; --mute:#8d897f; --dim:#5a574f;
-  --line:rgba(236,232,223,.14); --acc:#e9a23b;
-  --serif:"Instrument Serif","Times New Roman",serif;
-  --sans:"Inter Tight",system-ui,sans-serif;
-  --mono:"JetBrains Mono",ui-monospace,monospace;
-  --pad:clamp(16px,3.2vw,48px);
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{background:var(--bg);-webkit-text-size-adjust:100%}
-body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.5;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none}
-::selection{background:var(--acc);color:#0a0a0b}
-.grain{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:90;opacity:.085;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation:grain 1.2s steps(6) infinite}
-@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-4%)}60%{transform:translate(-2%,3%)}80%{transform:translate(4%,1%)}100%{transform:translate(0,0)}}
-.mono{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
-.mono b{color:var(--ink);font-weight:500}
-.dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--acc);margin-right:10px;vertical-align:middle;box-shadow:0 0 12px var(--acc)}
-em{font-style:italic}
-
-/* nav */
-.nav{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;align-items:center;justify-content:space-between;padding:18px var(--pad);mix-blend-mode:difference}
-.brand{font-family:var(--serif);font-size:26px;letter-spacing:-.01em;line-height:1}
-.brand i{color:var(--acc);font-style:normal}
-.nav ul{display:flex;gap:30px;list-style:none}
-.nav ul a{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;position:relative;padding:6px 0}
-.nav ul a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
-.nav ul a:hover::after{transform:scaleX(1);transform-origin:left}
-.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--ink);border-radius:999px;padding:12px 20px;transition:background .35s,color .35s}
-.btn:hover{background:var(--ink);color:var(--bg)}
-.btn .ar{transition:transform .35s}.btn:hover .ar{transform:translate(3px,-3px)}
-
-/* hero */
-.hero{min-height:100svh;padding:120px var(--pad) 0;display:flex;flex-direction:column;position:relative}
-.hero-top{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.h1{font-family:var(--serif);font-weight:400;font-size:clamp(64px,15.2vw,280px);line-height:.86;letter-spacing:-.035em;margin:auto 0 0;padding-top:6vh}
-.h1 .ln{display:block;overflow:hidden;padding-bottom:.08em}
-.h1 .ln>span{display:block}
-.h1 em{color:var(--acc)}
-.hero-sub{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:end;padding:28px 0 34px;border-top:1px solid var(--line);margin-top:28px}
-.hero-sub p{max-width:44ch;color:#c9c5bb;font-size:clamp(16px,1.35vw,20px)}
-.hero-sub .r{justify-self:end;text-align:right}
-
-/* strip video */
-.strip-wrap{padding:0 var(--pad) 12vh}
-.strip-head{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:0 0 18px}
-.strip-head span{white-space:nowrap}
-.rec{color:var(--acc)!important}
-.strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,1.6vw,26px)}
-.fr{position:relative;aspect-ratio:9/16;overflow:hidden;border-radius:4px;background:#050505}
-.fr:nth-child(even){margin-top:10vh}
-.fr video,.fr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.fr::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),transparent 22%,transparent 78%,rgba(0,0,0,.45));pointer-events:none}
-.fr .cap{position:absolute;left:12px;right:12px;display:flex;justify-content:space-between;z-index:2}
-.fr .cap.t{top:12px}.fr .cap.b{bottom:12px}
-.fr .mono{color:rgba(236,232,223,.85);font-size:10.5px}
-.strip-foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:22px}
-
-/* pembuka */
-.pre{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;align-items:flex-end;justify-content:space-between;padding:var(--pad)}
-.pre .pw{font-family:var(--serif);font-size:clamp(40px,7vw,120px);line-height:.9;letter-spacing:-.03em}
-.pre .pw i{color:var(--acc)}
-.pre .pc{font-family:var(--serif);font-size:clamp(70px,16vw,280px);line-height:.8;letter-spacing:-.04em;color:var(--acc);font-variant-numeric:tabular-nums}
-.nav{transition:transform .6s cubic-bezier(.2,.8,.2,1)}
-.nav.hide{transform:translateY(-110%)}
-
-/* statement */
-.state{padding:14vh var(--pad) 18vh;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,4fr);gap:24px}
-.state p{font-family:var(--serif);font-size:clamp(34px,5.4vw,96px);line-height:1.02;letter-spacing:-.025em}
-.state .w{opacity:.14;transition:opacity .2s}
-.state .w.on{opacity:1}
-.state .w.k{font-style:italic;color:var(--acc)}
-
-/* marquee */
-.mq{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap;padding:20px 0}
-.mq div{display:inline-block;animation:mq 38s linear infinite;font-family:var(--serif);font-size:clamp(28px,3.6vw,56px);letter-spacing:-.02em}
-.mq span{margin:0 .5em}.mq i{color:var(--acc);font-style:normal;font-size:.5em;vertical-align:middle}
-@keyframes mq{to{transform:translateX(-50%)}}
-
-/* doors */
-.doors{padding:16vh var(--pad) 10vh}
-.sec-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:6vh}
-.h2{font-family:var(--serif);font-weight:400;font-size:clamp(48px,8.5vw,150px);line-height:.9;letter-spacing:-.03em}
-.h2 em{color:var(--acc)}
-.door{display:grid;grid-template-columns:90px minmax(0,1.5fr) minmax(0,1fr) 60px;gap:24px;align-items:center;padding:34px 0;border-top:1px solid var(--line);position:relative;cursor:pointer;transition:padding .5s cubic-bezier(.2,.8,.2,1),opacity .4s}
-.door:last-child{border-bottom:1px solid var(--line)}
-.door .nm{font-family:var(--serif);font-size:clamp(46px,7.6vw,132px);line-height:.92;letter-spacing:-.03em;transition:transform .6s cubic-bezier(.2,.8,.2,1),color .4s}
-.door .ds{color:#bdb9af;max-width:34ch;font-size:16px}
-.door .ds small{display:block;margin-top:10px}
-.door .go{justify-self:end;width:52px;height:52px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;font-size:20px;transition:.45s cubic-bezier(.2,.8,.2,1)}
-.doorlist:hover .door{opacity:.32}
-.doorlist .door:hover{opacity:1}
-.door:hover .nm{transform:translateX(22px);font-style:italic;color:var(--acc)}
-.door:hover .go{background:var(--acc);border-color:var(--acc);color:#0a0a0b;transform:rotate(-45deg)}
-
-/* floating preview */
-.pv{position:fixed;left:0;top:0;width:340px;height:430px;pointer-events:none;z-index:70;opacity:0;transform:translate(-50%,-50%) scale(.85);transition:opacity .35s,transform .5s cubic-bezier(.2,.8,.2,1);overflow:hidden;border-radius:4px;background:#0e0e0f;border:1px solid var(--line)}
-.pv.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
-.pv>div{position:absolute;inset:0;opacity:0;transition:opacity .35s}
-.pv>div.on{opacity:1}
-.art{position:relative;width:100%;height:100%;overflow:hidden;background:#0e0e0f}
-.art .cap{position:absolute;left:14px;bottom:12px;right:14px;display:flex;justify-content:space-between}
-/* studio art */
-.a-studio{background:radial-gradient(120% 80% at 70% 30%,#e9a23b 0,#8a3d12 34%,#170c08 68%,#070707 100%)}
-.a-studio::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.22) 0 2px,transparent 2px 5px)}
-.a-studio .play{position:absolute;left:50%;top:46%;width:74px;height:74px;margin:-37px;border:1px solid #fff;border-radius:50%;display:grid;place-items:center}
-.a-studio .play::after{content:"";border-left:16px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:5px}
-.a-studio .bar{position:absolute;left:14px;right:14px;bottom:40px;height:2px;background:rgba(255,255,255,.25)}
-.a-studio .bar::after{content:"";position:absolute;left:0;top:0;bottom:0;width:38%;background:#fff;animation:bar 5s linear infinite}
-@keyframes bar{from{width:0}to{width:100%}}
-/* dev art */
-.a-dev{background:#0b0d0e;background-image:linear-gradient(rgba(236,232,223,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(236,232,223,.07) 1px,transparent 1px);background-size:28px 28px}
-.a-dev .c1,.a-dev .c2{position:absolute;border:1px solid rgba(236,232,223,.35);border-radius:50%}
-.a-dev .c1{width:300px;height:300px;left:-60px;top:40px}.a-dev .c2{width:180px;height:180px;right:-30px;top:-30px;border-style:dashed;animation:spin 30s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.a-dev pre{position:absolute;left:18px;top:150px;font-family:var(--mono);font-size:11.5px;line-height:1.8;color:#cfcbc1}
-.a-dev pre b{color:var(--acc);font-weight:400}
-/* tools art */
-.a-tools{background:#ece8df;color:#0a0a0b;padding:22px}
-.a-tools .row{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid rgba(10,10,11,.14);font-size:14px;font-weight:500}
-.a-tools .row i{width:22px;height:22px;border-radius:6px;background:#0a0a0b;flex:none}
-.a-tools .row:nth-child(2) i{background:var(--acc)}
-.a-tools .row span{margin-left:auto;font-family:var(--mono);font-size:10px;letter-spacing:.1em;opacity:.55}
-.a-tools .mono{color:rgba(10,10,11,.6)}
-.a-tools .big{font-family:var(--serif);font-size:54px;line-height:.95;letter-spacing:-.03em;margin:6px 0 14px}
-/* 3d art */
-.a-3d{background:linear-gradient(#141210,#0a0a0b)}
-.a-3d .obj{position:absolute;left:50%;bottom:74px;width:190px;height:230px;transform:translateX(-50%);border-radius:95px 95px 14px 14px/120px 120px 14px 14px;
-  background:repeating-linear-gradient(0deg,#f0b55a 0 2px,#c98422 2px 4px);box-shadow:inset -34px 0 50px rgba(0,0,0,.45),inset 20px 0 30px rgba(255,235,190,.25),0 0 80px rgba(233,162,59,.35);
-  -webkit-mask-image:linear-gradient(0deg,#000 var(--h,62%),transparent var(--h,62%));mask-image:linear-gradient(0deg,#000 var(--h,62%),transparent var(--h,62%));animation:print 6s ease-in-out infinite}
-@property --h{syntax:"<percentage>";inherits:false;initial-value:10%}
-@keyframes print{0%{--h:6%}80%,100%{--h:100%}}
-.a-3d .bed{position:absolute;left:36px;right:36px;bottom:66px;height:8px;background:#2a2824;border-radius:2px}
-.a-3d .noz{position:absolute;left:50%;top:26px;width:2px;height:60px;background:var(--mute);animation:noz 1.2s ease-in-out infinite alternate}
-@keyframes noz{from{transform:translateX(-70px)}to{transform:translateX(70px)}}
-
-/* work */
-.work{padding:14vh var(--pad) 10vh;background:var(--bg2)}
-.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(16px,2.4vw,36px) clamp(16px,2.4vw,36px)}
-.card{display:block}
-.card:nth-child(1){grid-column:1/4}
-.card:nth-child(2){grid-column:4/10;margin-top:16vh}
-.card:nth-child(3){grid-column:10/13;margin-top:5vh}
-.card .ph{position:relative;overflow:hidden;border-radius:4px;aspect-ratio:4/3;background:#0e0e0f}
-.card:nth-child(1) .ph,.card:nth-child(3) .ph{aspect-ratio:9/16}
-.card .ph video,.card .ph img.shot,.pv video,.pv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
-.card .ph img.shot{object-position:50% 0}
-.card:hover .ph video,.card:hover .ph img.shot{transform:scale(1.045)}
-.card .ph .tag{position:absolute;left:14px;bottom:12px;z-index:2;color:rgba(236,232,223,.9)}
-.card .ph .art{transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
-.card:hover .ph .art{transform:scale(1.045)}
-.card .meta{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding-top:16px}
-.card h3{font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.8vw,44px);letter-spacing:-.02em;line-height:1.05}
-.card p{color:var(--mute);font-size:15px;margin-top:4px;max-width:40ch}
-.note{margin-top:8vh;color:var(--dim)}
-
-/* process */
-.proc{padding:16vh var(--pad)}
-.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
-.step{padding:30px 28px 10px 0;border-right:1px solid var(--line)}
-.step+.step{padding-left:28px}.step:last-child{border-right:0}
-.step .n{font-family:var(--serif);font-size:clamp(70px,9vw,150px);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(236,232,223,.4);letter-spacing:-.03em}
-.step h4{font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.6vw,40px);letter-spacing:-.02em;margin:18px 0 10px}
-.step p{color:#bdb9af;max-width:34ch}
-
-/* cta + footer */
-.cta{padding:18vh var(--pad) 12vh;text-align:center;border-top:1px solid var(--line);position:relative;overflow:hidden}
-.cta::before{content:"";position:absolute;left:50%;bottom:-60%;width:120vw;height:120vw;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(233,162,59,.2),transparent 70%);pointer-events:none}
-.cta .h2{font-size:clamp(56px,11vw,210px);margin:26px 0 44px;position:relative}
-.mail{position:relative;display:inline-block;font-family:var(--serif);font-size:clamp(24px,3.4vw,56px);letter-spacing:-.02em;border-bottom:1px solid var(--ink);padding-bottom:6px;transition:color .3s,border-color .3s}
-.mail:hover{color:var(--acc);border-color:var(--acc)}
-footer{padding:0 var(--pad) 26px}
-.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:26px 0;border-top:1px solid var(--line)}
-.foot a:hover{color:var(--ink)}
-.wm{font-family:var(--serif);font-size:25.5vw;line-height:.78;letter-spacing:-.045em;text-align:center;white-space:nowrap;overflow:hidden;padding-top:4vh;color:var(--ink)}
-.wm i{font-style:italic;color:var(--acc)}
-
-/* rekam jejak */
-.proof{padding:16vh var(--pad) 12vh;position:relative}
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:12vh}
-.stat{padding:30px 24px 26px 0;border-right:1px solid var(--line)}
-.stat+.stat{padding-left:24px}.stat:last-child{border-right:0}
-.stat .v{font-family:var(--serif);font-size:clamp(56px,7vw,128px);line-height:.9;letter-spacing:-.035em;display:flex;align-items:baseline;gap:.12em}
-.stat .v small{font-size:.38em;color:var(--acc)}
-.stat .mono{display:block;margin-top:14px}
-.stars{display:inline-flex;gap:5px}
-.stars svg{width:18px;height:18px;fill:var(--acc);filter:drop-shadow(0 0 10px rgba(233,162,59,.45))}
-.quotes{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,4fr);gap:24px}
-.q{padding:0 0 9vh}
-.q+.q{padding-top:9vh;border-top:1px solid var(--line)}
-.q blockquote{font-family:var(--serif);font-size:clamp(32px,4.4vw,78px);line-height:1.04;letter-spacing:-.025em;margin:22px 0 0;text-indent:-.42em}
-.q blockquote em{color:var(--acc)}
-.q .tr{color:var(--mute);max-width:62ch;margin-top:22px;font-size:16px}
-.q .by{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:28px;align-items:center}
-.q .by b{font-family:var(--sans);font-size:15px;letter-spacing:0;text-transform:none;color:var(--ink);font-weight:500}
-.verify{display:inline-flex;align-items:center;gap:10px;border-bottom:1px solid var(--line);padding-bottom:4px;transition:color .3s,border-color .3s}
-.verify:hover{color:var(--acc);border-color:var(--acc)}
-
-/* daftar pekerjaan */
-.ledger{padding:6vh var(--pad) 16vh}
-.lg{border-top:1px solid var(--line)}
-.lr{display:grid;grid-template-columns:70px minmax(0,2.4fr) minmax(0,1.3fr) 110px 150px;gap:20px;align-items:center;padding:24px 0;border-bottom:1px solid var(--line);position:relative;transition:padding .5s cubic-bezier(.2,.8,.2,1)}
-.lr::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(233,162,59,.08),transparent 70%);opacity:0;transition:opacity .4s;pointer-events:none}
-.lr:hover::before{opacity:1}
-.lr:hover{padding-left:14px}
-.lr h4{font-family:var(--serif);font-weight:400;font-size:clamp(22px,2.2vw,34px);letter-spacing:-.015em;line-height:1.1}
-.lr p{color:var(--mute);font-size:15px}
-.lr .st{justify-self:end;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
-.lr .st i{width:7px;height:7px;border-radius:50%;background:var(--dim)}
-.lr .st.live i{background:#6fcf8e;box-shadow:0 0 10px #6fcf8e}
-.lr .st.run i{background:var(--acc);box-shadow:0 0 10px var(--acc);animation:blink 1.6s ease-in-out infinite}
-.lr .st .stars svg{width:11px;height:11px}
-@keyframes blink{50%{opacity:.25}}
-.ledger .note{margin-top:28px}
-
-/* katalog 3D */
-.p3d{padding:16vh var(--pad) 14vh;background:var(--bg2);position:relative;overflow:hidden}
-.p3d-hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(24px,4vw,70px);align-items:end;margin-bottom:12vh}
-.p3d-hero .ph{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:4px}
-.p3d-hero .ph img{width:100%;height:115%;object-fit:cover;display:block}
-.p3d-hero .ph .cap{position:absolute;left:14px;right:14px;bottom:12px;display:flex;justify-content:space-between;color:rgba(236,232,223,.9)}
-.p3d-hero h2{margin-bottom:28px}
-.p3d-hero p{color:#c9c5bb;max-width:42ch;font-size:clamp(16px,1.3vw,19px)}
-.facts{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);margin-top:36px}
-.facts div{padding:18px 0;border-bottom:1px solid var(--line)}
-.facts div:nth-child(odd){padding-right:16px;border-right:1px solid var(--line)}
-.facts div:nth-child(even){padding-left:16px}
-.facts b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(24px,2.2vw,34px);letter-spacing:-.015em;color:var(--ink);text-transform:none;line-height:1.1;margin-bottom:4px}
-.cat{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2.4vw,36px)}
-.it:nth-child(3n+2){margin-top:10vh}.it:nth-child(3n+3){margin-top:4vh}
-.it .ph{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:4px;background:#0e0e0f}
-.it .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.8,.2,1),filter .6s}
-.it:hover .ph img{transform:scale(1.05)}
-.it .ph .k{position:absolute;left:12px;top:12px;color:rgba(236,232,223,.92);background:rgba(10,10,11,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:6px 10px;border-radius:999px;font-size:10px}
-.it .row{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding-top:16px}
-.it h3{font-family:var(--serif);font-weight:400;font-size:clamp(24px,2.3vw,36px);letter-spacing:-.02em;line-height:1.05}
-.it .pr{font-family:var(--serif);font-size:clamp(20px,1.8vw,28px);color:var(--acc);white-space:nowrap}
-.it .pr small{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--mute);display:block;text-align:right}
-.it p{color:var(--mute);font-size:14.5px;margin-top:4px}
-.p3d-foot{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:12vh;padding-top:24px;border-top:1px solid var(--line)}
-.credit{color:var(--dim);font-size:11.5px;line-height:1.7;max-width:110ch}
-.credit a{text-decoration:underline;text-underline-offset:2px}
-.credit a:hover{color:var(--ink)}
-
-/* sosial */
-.soc{position:relative;display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:46px}
-.soc a{display:inline-flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:999px;padding:14px 22px 14px 16px;font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;transition:background .35s,color .35s,border-color .35s}
-.soc a:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.soc svg{width:20px;height:20px;fill:currentColor}
-.nav .ic{display:flex;gap:16px;align-items:center}
-.nav .ic a{display:grid;place-items:center;width:20px;height:20px;opacity:.85;transition:opacity .3s}
-.nav .ic a:hover{opacity:1}
-.nav .ic svg{width:17px;height:17px;fill:currentColor}
-.nav .rt{display:flex;align-items:center;gap:22px}
-
-@media (max-width:860px){
-  .stats{grid-template-columns:1fr 1fr}
-  .stat:nth-child(2){border-right:0}.stat:nth-child(3){padding-left:0}
-  .stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
-  .quotes{grid-template-columns:1fr}
-  .lr{grid-template-columns:1fr auto;gap:6px 14px;padding:20px 0}
-  .lr .yr{grid-column:1/3}.lr .ds{grid-column:1/3}.lr .dr{grid-row:4}.lr .st{grid-row:4}
-  .lr:hover{padding-left:0}
-  .p3d-hero{grid-template-columns:1fr}
-  .cat{grid-template-columns:1fr 1fr}
-  .it:nth-child(n){margin-top:0}.it:nth-child(even){margin-top:6vh}
-  .nav .ic{display:none}
-
-  .nav ul{display:none}
-  .hero{padding-top:96px}
-  .h1{font-size:19.5vw}
-  .hero-sub{grid-template-columns:1fr}.hero-sub .r{justify-self:start;text-align:left}
-  .strip{grid-template-columns:repeat(2,minmax(0,1fr))}.fr:nth-child(even){margin-top:8vh}
-  .state{grid-template-columns:1fr}
-  .door{grid-template-columns:1fr 44px;gap:10px 14px;padding:26px 0}
-  .door .ix{grid-column:1/3}.door .nm{grid-column:1/2}.door .go{grid-row:2;grid-column:2;width:44px;height:44px}
-  .door .ds{grid-column:1/3}
-  .pv{display:none}
-  .doorlist:hover .door{opacity:1}
-  .card{grid-column:1/-1!important;margin-top:0!important}
-  .steps{grid-template-columns:1fr}.step,.step+.step{border-right:0;border-bottom:1px solid var(--line);padding:26px 0}
-}
-@media (prefers-reduced-motion:reduce){.grain,.mq div,.a-3d .obj,.a-3d .noz,.a-dev .c2{animation:none}.a-3d .obj{--h:100%}.state .w{opacity:1}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zul Labs — Satu studio, empat pintu</title>
+  <link rel="canonical" href="https://zullabs.co.id/" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://zullabs.co.id/" />
+  <meta property="og:title" content="Zul Labs — Satu studio, empat pintu" />
+  <meta property="og:description" content="PT Zul Labs Teknologi — Studio Video AI, Aplikasi Mobile &amp; Web, Alat Kerja Digital, dan Cetak 3D Presisi di Indonesia." />
+  <meta property="og:image" content="https://zullabs.co.id/media/noor.jpg" />
+  <meta name="description" content="PT Zul Labs Teknologi — Studio Video AI, Aplikasi Mobile & Web, Alat Kerja Digital, dan Cetak 3D Presisi di Indonesia." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
 </head>
 <body>
-<div class="grain" aria-hidden="true"></div>
-<noscript><style>.pre{display:none}</style></noscript>
-<div class="pre" id="pre" aria-hidden="true"><div class="pw">Zul <i>Labs</i></div><div class="pc" id="pc">0</div></div>
+  <!-- Fixed 3D WebGL Stage -->
+  <div id="webgl-wrap" aria-hidden="true">
+    <canvas id="scene3d"></canvas>
+    <div class="stage-vignette"></div>
+    <div class="stage-grid"></div>
+  </div>
 
-<header class="nav">
-  <a class="brand" href="#top">Zul Labs<i>.</i></a>
-  <ul>
-    <li><a href="#studio">Studio</a></li>
-    <li><a href="#dev">Dev</a></li>
-    <li><a href="#tools">Tools</a></li>
-    <li><a href="#3d">3D</a></li>
-    <li><a href="#karya">Karya</a></li>
-    <li><a href="#ulasan">Ulasan</a></li>
-  </ul>
-  <div class="rt"><div class="ic"><a href="https://www.instagram.com/zullabs.id/" target="_blank" rel="noopener" aria-label="Instagram Zul Labs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.2.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4 6.2 6.2 0 000-12.4zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.9 1.4 1.4 0 000-2.9z"/></svg></a><a href="https://www.youtube.com/@zullabs" target="_blank" rel="noopener" aria-label="YouTube Zul Labs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2 31.5 31.5 0 000 12a31.5 31.5 0 00.5 5.8 3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1A31.5 31.5 0 0024 12a31.5 31.5 0 00-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a></div>
-  <a class="btn" href="#kontak">Mulai proyek <span class="ar">↗</span></a></div>
-</header>
-
-<main id="top">
-<section class="hero">
-  <div class="hero-top">
-    <div class="mono"><span class="dot"></span><b>PT Zul Labs Teknologi</b> — Indonesia</div>
-    <div class="mono">Studio · Dev · Tools · 3D</div>
-  </div>
-  <h1 class="h1">
-    <span class="ln"><span>Satu studio.</span></span>
-    <span class="ln"><span><em>Empat pintu.</em></span></span>
-  </h1>
-  <div class="hero-sub">
-    <p>Video yang menjual, aplikasi yang bekerja, alat yang menghemat waktu, dan benda yang bisa Anda pegang. Semuanya dibuat di satu tempat.</p>
-    <div class="r mono">Gulir untuk masuk ↓</div>
-  </div>
-</section>
-
-<div class="strip-wrap" id="reel">
-  <div class="strip-head"><span class="mono rec">● Rec &nbsp;<b>Karya terbaru</b></span><span class="mono" id="tc">00:00:00:00</span></div>
-  <div class="strip">
-    <div class="fr"><video src="media/noor.mp4" poster="media/noor.jpg" data-t="0" muted loop playsinline autoplay preload="metadata"></video><div class="cap t mono"><span>01</span><span>NOOR</span></div><div class="cap b mono"><span>Iklan AI</span><span>9:16</span></div></div>
-    <div class="fr"><video src="media/luma.mp4" poster="media/luma.jpg" data-t="5" muted loop playsinline autoplay preload="metadata"></video><div class="cap t mono"><span>02</span><span>LUMA</span></div><div class="cap b mono"><span>Iklan AI</span><span>9:16</span></div></div>
-    <div class="fr"><video src="media/noor.mp4" poster="media/noor.jpg" data-t="13" muted loop playsinline autoplay preload="metadata"></video><div class="cap t mono"><span>03</span><span>NOOR</span></div><div class="cap b mono"><span>Detail</span><span>20 dtk</span></div></div>
-    <div class="fr"><video src="media/luma.mp4" poster="media/luma.jpg" data-t="16" muted loop playsinline autoplay preload="metadata"></video><div class="cap t mono"><span>04</span><span>LUMA</span></div><div class="cap b mono"><span>Suasana</span><span>20 dtk</span></div></div>
-  </div>
-  <div class="strip-foot mono"><span>Konsep, gambar, gerak, musik: dikerjakan di Zul Labs</span><span>Merek contoh, bukan klien</span></div>
-</div>
-
-<section class="state">
-  <div class="mono"><span class="dot"></span>Tentang</div>
-  <p id="st">Kami percaya ide bagus tidak butuh tim besar. Ia butuh <k>tangan yang teliti</k>, alat yang tepat, dan seseorang yang <k>benar-benar peduli</k> pada hasil akhirnya.</p>
-</section>
-
-<div class="mq" aria-hidden="true"><div>
-  <span>Video demo</span><i>✦</i><span>Iklan AI</span><i>✦</i><span>Aplikasi mobile</span><i>✦</i><span>Web</span><i>✦</i><span>Alat kerja digital</span><i>✦</i><span>Cetak 3D</span><i>✦</i>
-  <span>Video demo</span><i>✦</i><span>Iklan AI</span><i>✦</i><span>Aplikasi mobile</span><i>✦</i><span>Web</span><i>✦</i><span>Alat kerja digital</span><i>✦</i><span>Cetak 3D</span><i>✦</i>
-</div></div>
-
-<section class="doors">
-  <div class="sec-head">
-    <h2 class="h2">Apa yang Anda<br><em>butuhkan?</em></h2>
-    <div class="mono">[ 04 pintu ]</div>
-  </div>
-  <div class="doorlist">
-    <a class="door" id="studio" href="#karya" data-i="0">
-      <div class="mono ix">01</div><div class="nm">Studio</div>
-      <div class="ds">Video demo produk, tutorial, dan iklan berbasis AI yang membuat orang berhenti menggulir.<small class="mono">Demo SaaS · Tutorial · Iklan vertikal</small></div>
-      <div class="go">→</div>
-    </a>
-    <a class="door" id="dev" href="#jejak" data-i="1">
-      <div class="mono ix">02</div><div class="nm">Dev</div>
-      <div class="ds">Aplikasi mobile dan web yang dibangun rapi, dari ide pertama sampai siap dipakai.<small class="mono">Flutter · React · Firebase</small></div>
-      <div class="go">→</div>
-    </a>
-    <a class="door" id="tools" href="#jejak" data-i="2">
-      <div class="mono ix">03</div><div class="nm">Tools</div>
-      <div class="ds">Alat siap pakai untuk kerja kantoran: lebih sedikit klik, lebih banyak selesai.<small class="mono">GasPDF · Prompt kerja · Template</small></div>
-      <div class="go">→</div>
-    </a>
-    <a class="door" id="3d" href="#cetak3d" data-i="3">
-      <div class="mono ix">04</div><div class="nm">3D</div>
-      <div class="ds">Katalog cetak 3D dengan harga jelas, dikirim ke seluruh Indonesia.<small class="mono">Dekorasi · Figur · Purwarupa · Pesanan khusus</small></div>
-      <div class="go">→</div>
-    </a>
-  </div>
-</section>
-
-<section class="work" id="karya">
-  <div class="sec-head">
-    <h2 class="h2">Karya <em>pilihan</em></h2>
-    <div class="mono">[ 2025 — 2026 ]</div>
-  </div>
-  <div class="grid">
-    <a class="card" href="#"><div class="ph"><video src="media/noor.mp4" poster="media/noor.jpg" data-t="4" muted loop playsinline autoplay preload="metadata"></video><span class="tag mono">Studio · 00:20</span></div>
-      <div class="meta"><div><h3>NOOR</h3><p>Iklan vertikal 20 detik untuk koleksi busana malam.</p></div><span class="mono">Studio</span></div></a>
-    <a class="card" href="#"><div class="ph"><img class="shot" src="media/gaspdf.jpg" alt="Tampilan GasPDF" loading="lazy"></div>
-      <div class="meta"><div><h3>GasPDF</h3><p>19 alat PDF dalam satu halaman, diproses langsung di browser.</p></div><span class="mono">Tools</span></div></a>
-    <a class="card" href="#"><div class="ph"><video src="media/luma.mp4" poster="media/luma.jpg" data-t="12" muted loop playsinline autoplay preload="metadata"></video><span class="tag mono">Studio · 00:20</span></div>
-      <div class="meta"><div><h3>LUMA</h3><p>Iklan vertikal 20 detik untuk kelas yoga di atap kota.</p></div><span class="mono">Studio</span></div></a>
-  </div>
-</section>
-
-<section class="proof" id="ulasan">
-  <div class="sec-head">
-    <h2 class="h2">Kata <em>klien</em></h2>
-    <a class="mono verify" href="https://www.upwork.com/freelancers/~019297416949d4bdf7" target="_blank" rel="noopener">Cek langsung di Upwork ↗</a>
-  </div>
-  <div class="stats">
-    <div class="stat"><div class="v"><span class="cnt" data-to="5" data-dec="1">5,0</span><small>★</small></div><span class="mono">Rating di Upwork</span></div>
-    <div class="stat"><div class="v"><span class="cnt" data-to="6">6</span></div><span class="mono">Kontrak dikerjakan</span></div>
-    <div class="stat"><div class="v"><span class="cnt" data-to="100">100</span><small>%</small></div><span class="mono">Ulasan bintang lima</span></div>
-    <div class="stat"><div class="v"><span class="cnt" data-to="20">20</span><small>+</small></div><span class="mono">Video demo untuk satu platform</span></div>
-  </div>
-  <div class="quotes">
-    <div class="mono"><span class="dot"></span>Ulasan asli</div>
-    <div>
-      <div class="q">
-        <span class="stars" role="img" aria-label="5 dari 5 bintang"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.7l1.3-6.6L2.5 9.5l6.6-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.7l1.3-6.6L2.5 9.5l6.6-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.7l1.3-6.6L2.5 9.5l6.6-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.7l1.3-6.6L2.5 9.5l6.6-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.7l1.3-6.6L2.5 9.5l6.6-.8z"/></svg></span>
-        <blockquote lang="en">“Thorough, responsive, and even offered ideas I hadn’t thought of. He delivered <em>ahead of schedule</em> and provided everything I needed in multiple formats, including editable files. You can tell he really cares about the quality of his work. I would <em>1,000% hire him again</em> for future video projects.”</blockquote>
-        <p class="tr">“Teliti, cepat tanggap, bahkan memberi ide yang belum terpikir oleh saya. Selesai lebih cepat dari jadwal, lengkap dalam beberapa format termasuk file yang bisa diedit. Terlihat ia sungguh peduli pada kualitas kerjanya. Saya 1.000% akan memakai jasanya lagi untuk proyek video berikutnya.”</p>
-        <div class="by mono"><b>Nicole H.</b><span>Reel demo situs web · 60 detik</span><span>Okt 2026 · 5,0</span></div>
+  <!-- 3D-to-2D Projected Exploded Callouts Layer -->
+  <div id="callouts-layer" aria-hidden="true">
+    <div class="callout" data-target="shell">
+      <div class="callout-dot"></div>
+      <div class="callout-line"></div>
+      <div class="callout-card">
+        <span class="callout-code">04 · ATOMS / 3D PRINT</span>
+        <strong>Cangkang Presisi 0,4 mm</strong>
+        <p>PLA &amp; PETG · Purwarupa &amp; Katalog</p>
       </div>
-      <div class="q">
-        <span class="stars" role="img" aria-label="5 dari 5 bintang"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.7l1.3-6.6L2.5 9.5l6.6-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.7l1.3-6.6L2.5 9.5l6.6-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.7l1.3-6.6L2.5 9.5l6.6-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.7l1.3-6.6L2.5 9.5l6.6-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.7l1.3-6.6L2.5 9.5l6.6-.8z"/></svg></span>
-        <blockquote lang="en">“He completed the project successfully. <em>Would hire again.</em>”</blockquote>
-        <p class="tr">“Proyek diselesaikan dengan baik. Akan memakai jasanya lagi.”</p>
-        <div class="by mono"><b>John T.</b><span>Video demo &amp; pelatihan · platform software SEO</span><span>Okt–Nov 2026 · 5,0</span></div>
+    </div>
+    <div class="callout callout--left" data-target="optics">
+      <div class="callout-dot"></div>
+      <div class="callout-line"></div>
+      <div class="callout-card">
+        <span class="callout-code">01 · STUDIO</span>
+        <strong>Optik &amp; Motion AI</strong>
+        <p>Iklan vertikal 9:16 · Demo SaaS · Tutorial</p>
+      </div>
+    </div>
+    <div class="callout" data-target="core">
+      <div class="callout-dot"></div>
+      <div class="callout-line"></div>
+      <div class="callout-card">
+        <span class="callout-code">03 · TOOLS / AI</span>
+        <strong>Neural AI Core</strong>
+        <p>GasPDF · Otomasi · Alat kerja cepat</p>
+      </div>
+    </div>
+    <div class="callout callout--left" data-target="pcb">
+      <div class="callout-dot"></div>
+      <div class="callout-line"></div>
+      <div class="callout-card">
+        <span class="callout-code">02 · DEV</span>
+        <strong>Arsitektur Sistem &amp; IoT</strong>
+        <p>Flutter · React · Firebase · Hardware</p>
       </div>
     </div>
   </div>
-</section>
 
-<section class="ledger" id="jejak">
-  <div class="sec-head">
-    <h2 class="h2">Yang sudah<br><em>kami kerjakan</em></h2>
-    <div class="mono">[ 11 proyek ]</div>
+  <!-- Interactive 3D HUD Dock (Visible during Hero & Exploded View) -->
+  <div id="hud-dock" class="hud-dock">
+    <div class="hud-group">
+      <span class="hud-label">MATERIAL</span>
+      <button class="swatch active" data-preset="obsidian" title="Obsidian Teal" style="--sw:#00e5c7;--sw2:#0b1526"></button>
+      <button class="swatch" data-preset="amber" title="Amber Forge" style="--sw:#ff9e4a;--sw2:#24150a"></button>
+      <button class="swatch" data-preset="ivory" title="Arctic Ivory" style="--sw:#f1f5f9;--sw2:#94a3b8"></button>
+      <button class="swatch" data-preset="carbon" title="Stealth Carbon" style="--sw:#38bdf8;--sw2:#090d16"></button>
+    </div>
+    <div class="hud-divider"></div>
+    <button id="btn-explode" class="hud-btn" type="button">
+      <span class="hud-dot"></span>
+      <span id="btn-explode-txt">Buka Lapisan</span>
+    </button>
+    <button id="btn-inspect" class="hud-btn hud-btn--ghost" type="button">
+      Putar 360°
+    </button>
   </div>
-  <div class="lg">
-    <div class="lr"><span class="mono yr">01</span><div class="ds"><h4>20+ video demo &amp; pelatihan</h4><p>Platform software SEO — video utama, video per fitur, template seri</p></div><span class="mono dr">Studio</span><span></span><span class="mono st"><i></i>Selesai <span class="stars" role="img" aria-label="5 dari 5 bintang"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.7l1.3-6.6L2.5 9.5l6.6-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.7l1.3-6.6L2.5 9.5l6.6-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.7l1.3-6.6L2.5 9.5l6.6-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.7l1.3-6.6L2.5 9.5l6.6-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.7l1.3-6.6L2.5 9.5l6.6-.8z"/></svg></span></span></div>
-    <div class="lr"><span class="mono yr">02</span><div class="ds"><h4>Tutorial dwibahasa EN + ES</h4><p>Aplikasi daftar belanja — versi desktop dan mobile, UI dan suara Spanyol</p></div><span class="mono dr">Studio</span><span></span><span class="mono st run"><i></i>Berjalan</span></div>
-    <div class="lr"><span class="mono yr">03</span><div class="ds"><h4>Seri video tutorial aplikasi</h4><p>Aplikasi manajemen pekerjaan untuk usaha jasa</p></div><span class="mono dr">Studio</span><span></span><span class="mono st run"><i></i>Berjalan</span></div>
-    <div class="lr"><span class="mono yr">04</span><div class="ds"><h4>Reel demo situs web 60 detik</h4><p>Dari 3 menit rekaman layar jadi satu reel vertikal yang jelas</p></div><span class="mono dr">Studio</span><span></span><span class="mono st"><i></i>Selesai <span class="stars" role="img" aria-label="5 dari 5 bintang"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.7l1.3-6.6L2.5 9.5l6.6-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.7l1.3-6.6L2.5 9.5l6.6-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.7l1.3-6.6L2.5 9.5l6.6-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.7l1.3-6.6L2.5 9.5l6.6-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.4 6.1 20.7l1.3-6.6L2.5 9.5l6.6-.8z"/></svg></span></span></div>
-    <div class="lr"><span class="mono yr">05</span><div class="ds"><h4>Reels TikTok &amp; Instagram</h4><p>Empat reel per paket, meniru gaya editing referensi klien</p></div><span class="mono dr">Studio</span><span></span><span class="mono st"><i></i>Selesai</span></div>
-    <div class="lr"><span class="mono yr">06</span><div class="ds"><h4>MVP aplikasi navigasi motor</h4><p>Aplikasi Flutter: peta, rute, dan dasbor perjalanan</p></div><span class="mono dr">Dev</span><span></span><span class="mono st"><i></i>Selesai</span></div>
-    <div class="lr"><span class="mono yr">07</span><div class="ds"><h4>GasPDF</h4><p>19 alat PDF dalam satu halaman, termasuk ringkasan AI</p></div><span class="mono dr">Tools</span><span></span><span class="mono st live"><i></i>Tayang</span></div>
-    <div class="lr"><span class="mono yr">08</span><div class="ds"><h4>SupervisiAja</h4><p>Platform AI untuk merancang produk digital dari ide sampai PRD</p></div><span class="mono dr">Dev</span><span></span><span class="mono st live"><i></i>Tayang</span></div>
-    <div class="lr"><span class="mono yr">09</span><div class="ds"><h4>Titik Bilas</h4><p>SaaS laundry: web kasir dan aplikasi mobile pelanggan</p></div><span class="mono dr">Dev</span><span></span><span class="mono st run"><i></i>Pengembangan</span></div>
-    <div class="lr"><span class="mono yr">10</span><div class="ds"><h4>NOOR &amp; LUMA</h4><p>Iklan vertikal 20 detik berbasis AI untuk merek contoh</p></div><span class="mono dr">Studio</span><span></span><span class="mono st"><i></i>Selesai</span></div>
-    <div class="lr"><span class="mono yr">11</span><div class="ds"><h4>Produk digital di Lynk.id</h4><p>E-book dan kelas: AI Influencer, 100 Prompt Kerja Kantoran</p></div><span class="mono dr">Tools</span><span></span><span class="mono st live"><i></i>Tayang</span></div>
-  </div>
-  <p class="mono note">Nama klien disamarkan. Proyek internal instansi tidak ditampilkan.</p>
-</section>
 
-<section class="p3d" id="cetak3d">
-  <div class="p3d-hero">
-    <div class="ph"><img src="media/p3d-nozzle.jpg" alt="Nozzle printer 3D melelehkan filamen" loading="lazy"><div class="cap mono"><span>0,4 mm</span><span>Lapis demi lapis</span></div></div>
-    <div>
-      <div class="mono" style="margin-bottom:22px"><span class="dot"></span>Pintu 04 — Cetak 3D</div>
-      <h2 class="h2">Dari file<br><em>jadi benda.</em></h2>
-      <p>Pilih dari katalog atau kirim desain Anda sendiri. Harga tertulis jelas, dicetak dengan teliti, lalu dikemas aman dan dikirim ke seluruh Indonesia.</p>
-      <div class="facts mono">
-        <div><b>PLA · PETG</b>Bahan, aneka warna</div>
-        <div><b>STL · 3MF · OBJ</b>Kirim file Anda</div>
-        <div><b>Penawaran dulu</b>Bayar setelah harga sepakat</div>
-        <div><b>Seluruh Indonesia</b>Dikirim via ekspedisi</div>
+  <!-- Scroll Progress Telemetry -->
+  <div class="scroll-rail" aria-hidden="true">
+    <div class="scroll-rail-fill" id="scroll-fill"></div>
+  </div>
+
+  <!-- Glass Navigation -->
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a href="#hero" class="brand">
+        <span class="brand-mark">
+          <svg viewBox="0 0 64 64" width="32" height="32">
+            <defs>
+              <linearGradient id="zl-grad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#00e5c7" />
+                <stop offset="0.5" stop-color="#00c4a8" />
+                <stop offset="1" stop-color="#ff9e4a" />
+              </linearGradient>
+            </defs>
+            <rect width="64" height="64" rx="16" fill="url(#zl-grad)" />
+            <path d="M18 18h28v6L27 40h19v6H18v-6l19-16H18z" fill="#030711" />
+          </svg>
+        </span>
+        <span class="brand-name">ZUL LABS<span class="brand-dot">.</span></span>
+      </a>
+      <nav class="nav-links">
+        <a href="#exploded">Arsitektur 3D</a>
+        <a href="#pintu">4 Pintu</a>
+        <a href="#karya">Karya</a>
+        <a href="#cetak3d">Cetak 3D</a>
+        <a href="#ulasan">Ulasan</a>
+      </nav>
+      <a href="#kontak" class="btn btn--primary btn--sm">Mulai proyek →</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- CHAPTER 0: HERO -->
+    <section id="hero" class="hero">
+      <div class="hero-backdrop-word" aria-hidden="true">BITS TO ATOMS</div>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <div class="chip">
+            <span class="chip-pulse"></span>
+            PT ZUL LABS TEKNOLOGI — INDONESIA
+          </div>
+          <h1 class="hero-title">
+            Satu studio.<br />
+            <span class="serif-italic">Empat</span> pintu.
+          </h1>
+          <p class="hero-sub">
+            Video yang menjual, aplikasi yang bekerja, alat yang menghemat waktu, dan benda cetak 3D yang bisa Anda pegang. Semuanya dirakit di satu meja rekayasa.
+          </p>
+          <div class="hero-actions">
+            <a href="#kontak" class="btn btn--primary">Mulai proyek →</a>
+            <a href="#exploded" class="btn btn--glass">Bedah 3D Core ↓</a>
+          </div>
+          <div class="hero-metrics">
+            <div>
+              <strong>5,0 ★</strong>
+              <span>Rating Upwork</span>
+            </div>
+            <div>
+              <strong>100%</strong>
+              <span>Bintang Lima</span>
+            </div>
+            <div>
+              <strong>20+</strong>
+              <span>Video Demo</span>
+            </div>
+            <div>
+              <strong>0,4 mm</strong>
+              <span>Presisi 3D</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-stage-spacer" aria-hidden="true">
+          <div class="stage-hint">Seret objek 3D untuk memutar · Gulir untuk membedah</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 1: SCROLL-DRIVEN 3D EXPLODED VIEW -->
+    <section id="exploded" class="exploded-section">
+      <div class="exploded-sticky">
+        <div class="exploded-bg-word" id="exploded-word" aria-hidden="true">PRECISION</div>
+        <div class="wrap exploded-header">
+          <div>
+            <span class="sh-label">BITS-TO-ATOMS CORE · INTERAKTIF 3D</span>
+            <h2 class="sh-title">Dari baris kode<br />sampai wujud fisik.</h2>
+          </div>
+          <div class="exploded-phase" id="exploded-phase">
+            <span class="phase-num">01 / 04</span>
+            <strong id="phase-title">Lapisan Terbuka</strong>
+            <p id="phase-desc">Gulir perlahan — setiap lapisan memisah memperlihatkan 4 pintu layanan Zul Labs.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Scroll track height to drive smooth 3D explode & orbit -->
+      <div class="exploded-track" aria-hidden="true"></div>
+    </section>
+
+    <!-- TRUST MARQUEE -->
+    <div class="marquee-wrap" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Video Demo SaaS</span><span>Iklan AI Vertikal 9:16</span><span>Aplikasi Flutter &amp; React</span>
+        <span>Otomasi &amp; AI Agents</span><span>GasPDF &amp; Dev Tools</span><span>Cetak 3D PLA · PETG</span>
+        <span>Video Demo SaaS</span><span>Iklan AI Vertikal 9:16</span><span>Aplikasi Flutter &amp; React</span>
+        <span>Otomasi &amp; AI Agents</span><span>GasPDF &amp; Dev Tools</span><span>Cetak 3D PLA · PETG</span>
       </div>
     </div>
-  </div>
-  <div class="sec-head">
-    <h2 class="h2" style="font-size:clamp(40px,6vw,110px)">Katalog</h2>
-    <div class="mono">[ Harga mulai, belum termasuk ongkir ]</div>
-  </div>
-  <div class="cat">
-    <article class="it"><div class="ph"><img src="media/p3d-vas-spiral.jpg" alt="Vas spiral (foto ilustrasi)" loading="lazy"><span class="k mono">Dekorasi</span></div><div class="row"><h3>Vas spiral</h3><span class="pr"><small>mulai</small>Rp119.900</span></div><p>PLA · tinggi 15 cm · mode vas</p></article>
-    <article class="it"><div class="ph"><img src="media/p3d-vas-mesh.jpg" alt="Vas jala (foto ilustrasi)" loading="lazy"><span class="k mono">Dekorasi</span></div><div class="row"><h3>Vas jala</h3><span class="pr"><small>mulai</small>Rp93.900</span></div><p>PLA/PETG · tinggi 12 cm · pola jala</p></article>
-    <article class="it"><div class="ph"><img src="media/p3d-figur.jpg" alt="Figur & miniatur (foto ilustrasi)" loading="lazy"><span class="k mono">Figur</span></div><div class="row"><h3>Figur & miniatur</h3><span class="pr"><small>mulai</small>Rp47.900</span></div><p>PLA · 8–10 cm · bisa dari file Anda</p></article>
-    <article class="it"><div class="ph"><img src="media/p3d-mangkuk.jpg" alt="Mangkuk ulir (foto ilustrasi)" loading="lazy"><span class="k mono">Rumah</span></div><div class="row"><h3>Mangkuk ulir</h3><span class="pr"><small>mulai</small>Rp79.900</span></div><p>PETG aman kering · Ø 14 cm</p></article>
-    <article class="it"><div class="ph"><img src="media/p3d-kotak.jpg" alt="Kotak susun (foto ilustrasi)" loading="lazy"><span class="k mono">Rumah</span></div><div class="row"><h3>Kotak susun</h3><span class="pr"><small>mulai</small>Rp145.900</span></div><p>PETG translucent · 15 × 10 × 6 cm</p></article>
-    <article class="it"><div class="ph"><img src="media/p3d-teknik.jpg" alt="Purwarupa teknik (foto ilustrasi)" loading="lazy"><span class="k mono">Pesanan khusus</span></div><div class="row"><h3>Purwarupa teknik</h3><span class="pr"><small>mulai</small>Rp67.900</span></div><p>PETG · sesuai gambar kerja · per bagian</p></article>
-  </div>
-  <div class="p3d-foot">
-    <a class="btn" href="mailto:admin@zullabs.co.id?subject=Pesan%20cetak%203D">Pesan atau kirim file STL <span class="ar">↗</span></a>
-    <p class="credit mono">Foto ilustrasi, bukan hasil cetak kami: <a href="https://commons.wikimedia.org/wiki/File:3D_printer_nozzle_extruding_plastic_(15425519178).jpg" target="_blank" rel="noopener">David Elliott</a> (CC BY 2.0); <a href="https://commons.wikimedia.org/wiki/File:3D_Printed_Vase.jpg" target="_blank" rel="noopener">D Eaketts</a> (CC BY-SA 4.0); <a href="https://commons.wikimedia.org/wiki/File:Orange_3D-printed_vase_with_wilted_flower.jpg" target="_blank" rel="noopener">GrinningIodize</a> (CC BY-SA 4.0); <a href="https://commons.wikimedia.org/wiki/File:White_PLA_Spool.jpg" target="_blank" rel="noopener">Dennis Sylvester Hurd</a> (CC0); <a href="https://commons.wikimedia.org/wiki/File:Candy_bowl_v01_(16611191811).jpg" target="_blank" rel="noopener">Creative Tools</a> (CC BY 2.0); <a href="https://commons.wikimedia.org/wiki/File:Stacking_box_v03_(16426523399).jpg" target="_blank" rel="noopener">Creative Tools</a> (CC BY 2.0); <a href="https://commons.wikimedia.org/wiki/File:3D_printed_motor_parts_(15951650844).jpg" target="_blank" rel="noopener">Oak Ridge National Laboratory</a> (CC BY 2.0), via Wikimedia Commons. Harga final menyesuaikan ukuran, bahan, dan warna.</p>
-  </div>
-</section>
 
-<section class="proc">
-  <div class="sec-head">
-    <h2 class="h2">Cara <em>kerja</em></h2>
-    <div class="mono">[ 03 langkah ]</div>
-  </div>
-  <div class="steps">
-    <div class="step"><div class="n">01</div><h4>Ceritakan</h4><p>Sampaikan kebutuhan Anda dengan bahasa sehari-hari. Tidak perlu istilah teknis.</p></div>
-    <div class="step"><div class="n">02</div><h4>Lihat arahnya</h4><p>Anda menerima rencana, harga, dan contoh awal sebelum pekerjaan dimulai.</p></div>
-    <div class="step"><div class="n">03</div><h4>Terima hasilnya</h4><p>Hasil dikirim, direvisi bersama, sampai benar-benar sesuai.</p></div>
-  </div>
-</section>
+    <!-- CHAPTER 2: 4 PINTU LAYANAN -->
+    <section id="pintu" class="sect">
+      <div class="wrap">
+        <div class="sect-head">
+          <div>
+            <span class="sh-label">[ 04 PINTU ]</span>
+            <h2 class="sh-title">Apa yang Anda butuhkan?</h2>
+          </div>
+          <p class="sh-sub">
+            Kami percaya ide bagus tidak butuh tim besar. Ia butuh <em>tangan yang teliti</em>, alat yang tepat, dan seseorang yang benar-benar peduli pada hasil akhirnya.
+          </p>
+        </div>
 
-<section class="cta" id="kontak">
-  <div class="mono"><span class="dot"></span>Kontak</div>
-  <h2 class="h2">Punya ide?<br><em>Mari wujudkan.</em></h2>
-  <a class="mail" href="mailto:admin@zullabs.co.id">admin@zullabs.co.id ↗</a>
-  <p class="mono" style="margin-top:1rem;opacity:.8">Telepon <a href="tel:+6281271284888">+62 812-7128-4888</a> · Jl. KH Dewantara Blok C11 RT/RW 001/001, Kel. Pandan Wangi, Kec. Pandan, Kab. Tapanuli Tengah, Sumatera Utara 22611</p>
-  <div class="soc"><a href="https://www.instagram.com/zullabs.id/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.2.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4 6.2 6.2 0 000-12.4zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.9 1.4 1.4 0 000-2.9z"/></svg> @zullabs.id</a><a href="https://www.youtube.com/@zullabs" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2 31.5 31.5 0 000 12a31.5 31.5 0 00.5 5.8 3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1A31.5 31.5 0 0024 12a31.5 31.5 0 00-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg> @zullabs</a></div>
-</section>
-</main>
+        <div class="doors-grid">
+          <article class="glow-card" data-focus="optics">
+            <div class="glow-card-inner">
+              <div class="door-top">
+                <span class="door-num">01</span>
+                <span class="door-tag">STUDIO</span>
+              </div>
+              <h3>Video &amp; Iklan AI</h3>
+              <p>Video demo produk, tutorial dwibahasa, dan iklan vertikal berbasis AI yang membuat orang berhenti menggulir.</p>
+              <div class="pills">
+                <span>Demo SaaS</span><span>Tutorial</span><span>Iklan 9:16</span>
+              </div>
+            </div>
+          </article>
 
-<footer>
-  <div class="wm" aria-hidden="true">Zul <i>Labs</i></div>
-  <div class="foot mono">
-    <span>© 2026 PT ZUL LABS TEKNOLOGI · NIB 1810260016169 · <a href="tel:+6281271284888">+62 812-7128-4888</a><br>Jl. KH Dewantara Blok C11 RT/RW 001/001, Kel. Pandan Wangi, Kec. Pandan, Kab. Tapanuli Tengah, Sumatera Utara 22611</span>
-    <span><a href="kebijakan-privasi.html">Kebijakan privasi</a> &nbsp;·&nbsp; <a href="syarat-ketentuan.html">Syarat &amp; ketentuan</a></span>
-    <span><a href="https://www.instagram.com/zullabs.id/" target="_blank" rel="noopener">Instagram</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/@zullabs" target="_blank" rel="noopener">YouTube</a> &nbsp;·&nbsp; Dibuat di Indonesia</span>
-  </div>
-</footer>
+          <article class="glow-card" data-focus="pcb">
+            <div class="glow-card-inner">
+              <div class="door-top">
+                <span class="door-num">02</span>
+                <span class="door-tag">DEV</span>
+              </div>
+              <h3>Aplikasi Mobile &amp; Web</h3>
+              <p>Aplikasi mobile dan web yang dibangun rapi, dari ide pertama sampai arsitektur produksi siap dipakai.</p>
+              <div class="pills">
+                <span>Flutter</span><span>React</span><span>Firebase</span>
+              </div>
+            </div>
+          </article>
 
-<div class="pv" id="pv" aria-hidden="true">
-  <div><video src="media/luma.mp4" poster="media/luma.jpg" data-t="10" muted loop playsinline autoplay preload="metadata"></video></div>
-  <div><div class="art a-dev"><i class="c1"></i><i class="c2"></i><pre><b>build</b>(ide)
-  .rancang()
-  .uji()
-  .<b>rilis</b>()</pre><div class="cap mono"><span>Dev</span><span>v1.0</span></div></div></div>
-  <div><img src="media/gaspdf.jpg" alt="" style="object-position:50% 0"></div>
-  <div><img src="media/p3d-nozzle.jpg" alt=""></div>
-</div>
+          <article class="glow-card" data-focus="core">
+            <div class="glow-card-inner">
+              <div class="door-top">
+                <span class="door-num">03</span>
+                <span class="door-tag">TOOLS</span>
+              </div>
+              <h3>Alat Kerja Digital</h3>
+              <p>Alat siap pakai untuk kerja kantoran dan produktivitas AI: lebih sedikit klik, lebih banyak selesai.</p>
+              <div class="pills">
+                <span>GasPDF</span><span>AI Agent</span><span>Template</span>
+              </div>
+            </div>
+          </article>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script>
-(function(){
-  var reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+          <article class="glow-card" data-focus="shell">
+            <div class="glow-card-inner">
+              <div class="door-top">
+                <span class="door-num">04</span>
+                <span class="door-tag">3D PRINT</span>
+              </div>
+              <h3>Dari File Jadi Benda</h3>
+              <p>Katalog cetak 3D dan purwarupa teknik dengan harga jelas, dicetak lapis demi lapis, dikirim se-Indonesia.</p>
+              <div class="pills">
+                <span>PLA · PETG</span><span>Purwarupa</span><span>Custom STL</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-  /* pernyataan: pecah per kata */
-  var st = document.getElementById('st');
-  (function split(){
-    var out = '';
-    st.childNodes.forEach(function(n){
-      var key = n.nodeType === 1;
-      n.textContent.split(/(\s+)/).forEach(function(t){
-        out += /^\s*$/.test(t) ? t : '<span class="w' + (key ? ' k' : '') + '">' + t + '</span>';
-      });
-    });
-    st.innerHTML = out;
-  })();
-  var words = [].slice.call(st.querySelectorAll('.w'));
+    <!-- CHAPTER 3: KARYA PILIHAN & 11 PROYEK -->
+    <section id="karya" class="sect sect--alt">
+      <div class="wrap">
+        <div class="sect-head">
+          <div>
+            <span class="sh-label">[ 2025 — 2026 ]</span>
+            <h2 class="sh-title">Karya pilihan.</h2>
+          </div>
+          <p class="sh-sub">Konsep, gambar, gerak, kode, hingga benda fisik — seluruhnya dikerjakan di Zul Labs.</p>
+        </div>
 
-  /* video: mulai di detik berbeda agar tiap bingkai menampilkan adegan lain */
-  document.querySelectorAll('video[data-t]').forEach(function(v){
-    var t = +v.dataset.t;
-    function seek(){ try{ if (t) v.currentTime = t; }catch(e){} var pr = v.play(); if (pr && pr.catch) pr.catch(function(){}); }
-    if (v.readyState >= 1) seek(); else v.addEventListener('loadedmetadata', seek, { once: true });
-  });
-  var tc = document.getElementById('tc'), t0 = performance.now();
-  function p2(n){ return (n < 10 ? '0' : '') + n; }
-  (function tick(now){
-    var f = Math.floor(((now || t0) - t0) / 1000 * 24);
-    tc.textContent = '00:' + p2(Math.floor(f / 1440) % 60) + ':' + p2(Math.floor(f / 24) % 60) + ':' + p2(f % 24);
-    if (!reduce) requestAnimationFrame(tick);
-  })();
-  var pre = document.getElementById('pre');
+        <div class="featured-grid">
+          <article class="feat-card feat-card--teal">
+            <div class="feat-media">
+              <video autoplay muted loop playsinline poster="media/noor.jpg" src="media/noor.mp4"></video>
+            </div>
+            <div class="feat-meta"><span>STUDIO · 00:20</span><span>9:16</span></div>
+            <h3>NOOR</h3>
+            <p>Iklan vertikal 20 detik untuk koleksi busana malam — konsep, visual AI, beat-sync, hingga audio -14 LUFS.</p>
+            <span class="feat-note">Merek contoh · Spec Ad</span>
+          </article>
+          <article class="feat-card feat-card--amber">
+            <div class="feat-media">
+              <img src="media/gaspdf.jpg" alt="GasPDF — 19 alat PDF di browser" loading="lazy" />
+            </div>
+            <div class="feat-meta"><span>TOOLS · WEB APP</span><span>TAYANG</span></div>
+            <h3>GasPDF</h3>
+            <p>19 alat PDF dalam satu halaman, diproses langsung di browser tanpa unggah ke server, dilengkapi ringkasan AI.</p>
+            <span class="feat-note">Produk Zul Labs</span>
+          </article>
+          <article class="feat-card feat-card--cyan">
+            <div class="feat-media">
+              <video autoplay muted loop playsinline poster="media/luma.jpg" src="media/luma.mp4"></video>
+            </div>
+            <div class="feat-meta"><span>STUDIO · 00:20</span><span>9:16</span></div>
+            <h3>LUMA</h3>
+            <p>Iklan vertikal 20 detik berirama dinamis untuk kelas yoga di atap kota — visual atmosferik dan tipografi kinetik.</p>
+            <span class="feat-note">Merek contoh · Spec Ad</span>
+          </article>
+        </div>
 
-  /* pratinjau pintu mengikuti kursor */
-  var pv = document.getElementById('pv'), panes = pv.children, mx = 0, my = 0, px = 0, py = 0;
-  document.querySelectorAll('.door').forEach(function(d){
-    d.addEventListener('mouseenter', function(){
-      for (var i = 0; i < panes.length; i++) panes[i].classList.toggle('on', i == d.dataset.i);
-      pv.classList.add('on');
-    });
-    d.addEventListener('mouseleave', function(){ pv.classList.remove('on'); });
-    d.addEventListener('click', function(e){ var el = document.querySelector(d.getAttribute('href')); if (el){ e.preventDefault(); if (window.__lenis) window.__lenis.scrollTo(el, { offset: -40 }); else el.scrollIntoView({ behavior: 'smooth' }); } });
-  });
-  addEventListener('mousemove', function(e){ mx = e.clientX; my = e.clientY; });
-  (function follow(){
-    px += (mx - px) * .12; py += (my - py) * .12;
-    pv.style.left = Math.min(innerWidth - 190, px + 210) + 'px'; pv.style.top = py + 'px';
-    requestAnimationFrame(follow);
-  })();
+        <div class="projects-ledger">
+          <div class="ledger-head">
+            <h3>Yang sudah kami kerjakan</h3>
+            <span class="sh-label">[ 11 PROYEK ]</span>
+          </div>
+          <div class="ledger-list">
+            <div class="ledger-row"><span>01</span><strong>20+ video demo &amp; pelatihan</strong><em>Platform software SEO — video utama, per fitur, template seri</em><span class="badge">Studio · Selesai</span></div>
+            <div class="ledger-row"><span>02</span><strong>Tutorial dwibahasa EN + ES</strong><em>Aplikasi daftar belanja — desktop &amp; mobile, UI &amp; suara Spanyol</em><span class="badge badge--amber">Studio · Berjalan</span></div>
+            <div class="ledger-row"><span>03</span><strong>Seri video tutorial aplikasi</strong><em>Aplikasi manajemen pekerjaan untuk usaha jasa</em><span class="badge badge--amber">Studio · Berjalan</span></div>
+            <div class="ledger-row"><span>04</span><strong>Reel demo situs web 60 detik</strong><em>Dari 3 menit rekaman layar jadi 1 reel vertikal tajam</em><span class="badge">Studio · Selesai</span></div>
+            <div class="ledger-row"><span>05</span><strong>Reels TikTok &amp; Instagram</strong><em>Empat reel per paket, meniru gaya editing referensi klien</em><span class="badge">Studio · Selesai</span></div>
+            <div class="ledger-row"><span>06</span><strong>MVP aplikasi navigasi motor</strong><em>Aplikasi Flutter: peta, rute, dan dasbor perjalanan</em><span class="badge">Dev · Selesai</span></div>
+            <div class="ledger-row"><span>07</span><strong>GasPDF</strong><em>19 alat PDF dalam satu halaman, termasuk ringkasan AI</em><span class="badge badge--teal">Tools · Tayang</span></div>
+            <div class="ledger-row"><span>08</span><strong>SupervisiAja</strong><em>Platform AI merancang produk digital dari ide sampai PRD</em><span class="badge badge--teal">Dev · Tayang</span></div>
+            <div class="ledger-row"><span>09</span><strong>Titik Bilas</strong><em>SaaS laundry: web kasir dan aplikasi mobile pelanggan</em><span class="badge badge--amber">Dev · Pengembangan</span></div>
+            <div class="ledger-row"><span>10</span><strong>NOOR &amp; LUMA</strong><em>Iklan vertikal 20 detik berbasis AI untuk merek contoh</em><span class="badge">Studio · Selesai</span></div>
+            <div class="ledger-row"><span>11</span><strong>Produk digital di Lynk.id</strong><em>E-book &amp; kelas: AI Influencer, 100 Prompt Kerja Kantoran</em><span class="badge badge--teal">Tools · Tayang</span></div>
+          </div>
+          <p class="ledger-footnote">Nama klien disamarkan. Proyek internal instansi tidak ditampilkan.</p>
+        </div>
+      </div>
+    </section>
 
-  if (!window.gsap || reduce){ pre.style.display = 'none'; words.forEach(function(w){ w.classList.add('on'); }); return; }
-  gsap.registerPlugin(ScrollTrigger);
+    <!-- CHAPTER 4: PINTU 04 CETAK 3D -->
+    <section id="cetak3d" class="sect">
+      <div class="wrap">
+        <div class="sect-head">
+          <div>
+            <span class="sh-label">PINTU 04 — CETAK 3D · 0,4 MM LAPIS DEMI LAPIS</span>
+            <h2 class="sh-title">Dari file jadi benda.</h2>
+          </div>
+          <p class="sh-sub">
+            Pilih dari katalog atau kirim file <strong>STL · 3MF · OBJ</strong> Anda sendiri. Penawaran jelas dulu, bayar setelah harga sepakat, dikirim ke seluruh Indonesia.
+          </p>
+        </div>
 
-  if (window.Lenis){
-    var lenis = new Lenis({ lerp: .09 }); window.__lenis = lenis;
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add(function(t){ lenis.raf(t * 1000); });
-    gsap.ticker.lagSmoothing(0);
-    document.querySelectorAll('a[href^="#"]').forEach(function(a){
-      if (a.classList.contains('door') || a.classList.contains('card') || a.getAttribute('href') === '#') return;
-      a.addEventListener('click', function(e){ var el = document.querySelector(a.getAttribute('href')); if (el){ e.preventDefault(); lenis.scrollTo(el, { offset: -80 }); } });
-    });
-  }
+        <div class="catalog-grid">
+          <div class="cat-card">
+            <div class="cat-thumb"><img src="media/p3d-vas-spiral.jpg" alt="Vas spiral cetak 3D" loading="lazy" /></div>
+            <span class="cat-tag">DEKORASI</span>
+            <h3>Vas spiral</h3>
+            <p>PLA · tinggi 15 cm · mode vas</p>
+            <div class="cat-price"><span>mulai</span><strong>Rp119.900</strong></div>
+          </div>
+          <div class="cat-card">
+            <div class="cat-thumb"><img src="media/p3d-vas-mesh.jpg" alt="Vas jala cetak 3D" loading="lazy" /></div>
+            <span class="cat-tag">DEKORASI</span>
+            <h3>Vas jala</h3>
+            <p>PLA/PETG · tinggi 12 cm · pola jala</p>
+            <div class="cat-price"><span>mulai</span><strong>Rp93.900</strong></div>
+          </div>
+          <div class="cat-card">
+            <div class="cat-thumb"><img src="media/p3d-figur.jpg" alt="Figur dan miniatur cetak 3D" loading="lazy" /></div>
+            <span class="cat-tag">FIGUR</span>
+            <h3>Figur &amp; miniatur</h3>
+            <p>PLA · 8–10 cm · bisa dari file Anda</p>
+            <div class="cat-price"><span>mulai</span><strong>Rp47.900</strong></div>
+          </div>
+          <div class="cat-card">
+            <div class="cat-thumb"><img src="media/p3d-mangkuk.jpg" alt="Mangkuk ulir cetak 3D" loading="lazy" /></div>
+            <span class="cat-tag">RUMAH</span>
+            <h3>Mangkuk ulir</h3>
+            <p>PETG aman kering · Ø 14 cm</p>
+            <div class="cat-price"><span>mulai</span><strong>Rp79.900</strong></div>
+          </div>
+          <div class="cat-card">
+            <div class="cat-thumb"><img src="media/p3d-kotak.jpg" alt="Kotak susun cetak 3D" loading="lazy" /></div>
+            <span class="cat-tag">RUMAH</span>
+            <h3>Kotak susun</h3>
+            <p>PETG translucent · 15 × 10 × 6 cm</p>
+            <div class="cat-price"><span>mulai</span><strong>Rp145.900</strong></div>
+          </div>
+          <div class="cat-card cat-card--highlight">
+            <div class="cat-thumb"><img src="media/p3d-teknik.jpg" alt="Purwarupa teknik cetak 3D" loading="lazy" /></div>
+            <span class="cat-tag">PESANAN KHUSUS</span>
+            <h3>Purwarupa teknik</h3>
+            <p>PETG · sesuai gambar kerja · per bagian</p>
+            <div class="cat-price"><span>mulai</span><strong>Rp67.900</strong></div>
+          </div>
+        </div>
 
-  /* pembuka lalu masuk */
-  var cnt = { v: 0 }, pc = document.getElementById('pc');
-  var tl = gsap.timeline();
-  tl.to(cnt, { v: 100, duration: 1.25, ease: 'power2.inOut', onUpdate: function(){ pc.textContent = Math.round(cnt.v); } })
-    .to(pre, { yPercent: -100, duration: 1, ease: 'expo.inOut' }, '+=.1')
-    .set(pre, { display: 'none' })
-    .from('.h1 .ln>span', { yPercent: 110, duration: 1.4, ease: 'expo.out', stagger: .12 }, '-=.75')
-    .from('.hero-top>*, .hero-sub>*, .nav>*', { opacity: 0, y: 14, duration: 1, ease: 'power3.out', stagger: .06 }, '-=1');
+        <div class="cat-cta">
+          <a href="mailto:admin@zullabs.co.id?subject=Pesan%20cetak%203D" class="btn btn--primary">Pesan atau kirim file STL →</a>
+          <span>Harga mulai, belum termasuk ongkir · menyesuaikan ukuran, bahan &amp; warna.</span>
+        </div>
+      </div>
+    </section>
 
-  /* navigasi menyingkir saat gulir turun */
-  var nav = document.querySelector('.nav');
-  ScrollTrigger.create({ start: 200, end: 'max', onUpdate: function(st){ nav.classList.toggle('hide', st.direction === 1); }, onLeaveBack: function(){ nav.classList.remove('hide'); } });
+    <!-- CHAPTER 5: KATA KLIEN & CARA KERJA -->
+    <section id="ulasan" class="sect sect--alt">
+      <div class="wrap">
+        <div class="sect-head">
+          <div>
+            <span class="sh-label">ULASAN ASLI UPWORK</span>
+            <h2 class="sh-title">Kata klien.</h2>
+          </div>
+          <a href="https://www.upwork.com/freelancers/~019297416949d4bdf7" target="_blank" rel="noopener" class="btn btn--glass btn--sm">
+            Cek langsung di Upwork →
+          </a>
+        </div>
 
-  /* strip video: muncul lalu bergerak beda kecepatan */
-  gsap.utils.toArray('.fr').forEach(function(el, i){
-    gsap.from(el, { clipPath: 'inset(100% 0 0 0)', duration: 1.5, ease: 'expo.out', delay: i * .09, scrollTrigger: { trigger: '.strip', start: 'top 92%' } });
-    gsap.to(el, { y: (i % 2 ? -110 : -30), ease: 'none', scrollTrigger: { trigger: '.strip', start: 'top bottom', end: 'bottom top', scrub: true } });
-  });
+        <div class="reviews-grid">
+          <blockquote class="review-card">
+            <div class="stars">★★★★★ <span>5,0</span></div>
+            <p class="review-en">“Thorough, responsive, and even offered ideas I hadn’t thought of. He delivered ahead of schedule and provided everything I needed in multiple formats, including editable files. I would 1,000% hire him again.”</p>
+            <p class="review-id">“Teliti, cepat tanggap, bahkan memberi ide yang belum terpikir oleh saya. Selesai lebih cepat dari jadwal, lengkap dalam beberapa format termasuk file yang bisa diedit.”</p>
+            <footer><strong>Nicole H.</strong> · Reel demo situs web 60 detik · Okt 2026</footer>
+          </blockquote>
 
-  /* kata menyala */
-  ScrollTrigger.create({ trigger: st, start: 'top 80%', end: 'bottom 45%', scrub: true,
-    onUpdate: function(s){ var n = Math.round(s.progress * words.length); words.forEach(function(w, i){ w.classList.toggle('on', i < n); }); } });
+          <blockquote class="review-card">
+            <div class="stars">★★★★★ <span>5,0</span></div>
+            <p class="review-en">“He completed the project successfully. Would hire again.”</p>
+            <p class="review-id">“Proyek diselesaikan dengan baik. Akan memakai jasanya lagi.”</p>
+            <footer><strong>John T.</strong> · Video demo &amp; pelatihan platform SEO · Okt–Nov 2026</footer>
+          </blockquote>
+        </div>
 
-  /* judul bagian, pintu, kartu, langkah */
-  gsap.utils.toArray('.sec-head .h2, .cta .h2').forEach(function(el){
-    gsap.from(el, { y: 80, opacity: 0, duration: 1.3, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
-  });
-  gsap.utils.toArray('.door').forEach(function(el, i){
-    gsap.from(el, { y: 50, opacity: 0, duration: 1.1, ease: 'expo.out', delay: i * .06, clearProps: 'opacity,transform', scrollTrigger: { trigger: '.doorlist', start: 'top 82%' } });
-  });
-  gsap.utils.toArray('.card').forEach(function(el, i){
-    gsap.from(el.querySelector('.ph'), { clipPath: 'inset(100% 0 0 0)', duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
-    gsap.to(el, { y: (i % 2 ? -70 : -25), ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } });
-  });
-  /* rekam jejak: angka menghitung, ulasan & baris muncul */
-  gsap.utils.toArray('.cnt').forEach(function(el){
-    var to = +el.dataset.to, dec = +(el.dataset.dec || 0), o = { v: 0 };
-    gsap.to(o, { v: to, duration: 1.8, ease: 'power3.out', scrollTrigger: { trigger: '.stats', start: 'top 85%' },
-      onUpdate: function(){ el.textContent = o.v.toFixed(dec).replace('.', ','); } });
-  });
-  gsap.from('.stat', { y: 40, opacity: 0, duration: 1.1, ease: 'expo.out', stagger: .08, scrollTrigger: { trigger: '.stats', start: 'top 85%' } });
-  gsap.utils.toArray('.q').forEach(function(q){
-    gsap.from(q.querySelectorAll('.stars svg'), { scale: 0, rotate: -90, duration: .7, ease: 'back.out(2.4)', stagger: .07, scrollTrigger: { trigger: q, start: 'top 80%' } });
-    gsap.from(q.querySelector('blockquote'), { y: 60, opacity: 0, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: q, start: 'top 80%' } });
-    gsap.from(q.querySelectorAll('.tr,.by'), { y: 20, opacity: 0, duration: 1, ease: 'power3.out', stagger: .1, delay: .3, scrollTrigger: { trigger: q, start: 'top 80%' } });
-  });
-  gsap.utils.toArray('.lr').forEach(function(el){
-    gsap.from(el, { y: 36, opacity: 0, duration: 1, ease: 'expo.out', clearProps: 'opacity,transform', scrollTrigger: { trigger: el, start: 'top 92%' } });
-  });
-  gsap.from('.p3d-hero .ph', { clipPath: 'inset(0 0 100% 0)', duration: 1.6, ease: 'expo.out', scrollTrigger: { trigger: '.p3d-hero', start: 'top 80%' } });
-  gsap.to('.p3d-hero .ph img', { yPercent: -12, ease: 'none', scrollTrigger: { trigger: '.p3d-hero', start: 'top bottom', end: 'bottom top', scrub: true } });
-  gsap.utils.toArray('.it').forEach(function(el, i){
-    gsap.from(el.querySelector('.ph'), { clipPath: 'inset(100% 0 0 0)', duration: 1.4, ease: 'expo.out', delay: (i % 3) * .08, scrollTrigger: { trigger: el, start: 'top 90%' } });
-  });
-  gsap.from('.step', { y: 60, opacity: 0, duration: 1.1, ease: 'expo.out', stagger: .12, scrollTrigger: { trigger: '.steps', start: 'top 82%' } });
-  gsap.from('.wm', { yPercent: 40, ease: 'none', scrollTrigger: { trigger: 'footer', start: 'top bottom', end: 'bottom bottom', scrub: true } });
-})();
-</script>
+        <div class="steps-wrap">
+          <div class="steps-head">
+            <span class="sh-label">[ 03 LANGKAH ]</span>
+            <h3>Cara kerja</h3>
+          </div>
+          <div class="steps-grid">
+            <div class="step-card">
+              <span>01</span>
+              <h4>Ceritakan</h4>
+              <p>Sampaikan kebutuhan Anda dengan bahasa sehari-hari. Tidak perlu istilah teknis.</p>
+            </div>
+            <div class="step-card">
+              <span>02</span>
+              <h4>Lihat arahnya</h4>
+              <p>Anda menerima rencana, harga, dan contoh awal sebelum pekerjaan dimulai.</p>
+            </div>
+            <div class="step-card">
+              <span>03</span>
+              <h4>Terima hasilnya</h4>
+              <p>Hasil dikirim, direvisi bersama, sampai benar-benar sesuai harapan Anda.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 6: KONTAK & FOOTER -->
+    <section id="kontak" class="sect kontak-sect">
+      <div class="wrap">
+        <div class="cta-glass">
+          <span class="sh-label">KONTAK LANGSUNG</span>
+          <h2 class="cta-title">Punya ide?<br /><span class="serif-italic">Mari wujudkan.</span></h2>
+          <p class="cta-code"><code>build(ide).rancang().uji().rilis()</code></p>
+          <div class="cta-buttons">
+            <a href="mailto:admin@zullabs.co.id" class="btn btn--primary">admin@zullabs.co.id →</a>
+            <a href="https://wa.me/6281271284888" target="_blank" rel="noopener" class="btn btn--glass">WhatsApp +62 812-7128-4888 →</a>
+          </div>
+          <div class="cta-socials">
+            <a href="https://www.instagram.com/zullabs.id/" target="_blank" rel="noopener">Instagram @zullabs.id →</a>
+            <a href="https://www.youtube.com/@zullabs" target="_blank" rel="noopener">YouTube @zullabs →</a>
+            <a href="https://www.upwork.com/freelancers/~019297416949d4bdf7" target="_blank" rel="noopener">Upwork 5,0 ★ →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div>
+        <strong>© 2026 PT ZUL LABS TEKNOLOGI</strong> · NIB 1810260016169 · +62 812-7128-4888
+        <p>Jl. KH Dewantara Blok C11 RT/RW 001/001, Kel. Pandan Wangi, Kec. Pandan, Kab. Tapanuli Tengah, Sumatera Utara 22611</p>
+      </div>
+      <div class="footer-right">
+        <a href="kebijakan-privasi.html">Kebijakan privasi</a> · <a href="syarat-ketentuan.html">Syarat &amp; ketentuan</a> · Dibuat di Indonesia
+      </div>
+    </div>
+  </footer>
+
+  <!-- GSAP + ScrollTrigger + Lenis -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script type="module" src="main.js"></script>
 </body>
 </html>
