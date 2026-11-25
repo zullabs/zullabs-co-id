@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tameng Anti-Deepfake (MIT PhotoGuard) — Panduan Zul Labs</title>
+  <meta name="description" content="Link resmi GitHub MIT PhotoGuard, paper ICML 2023, dan panduan langkah demi langkah cara mencobanya gratis di Google Colab dalam bahasa manusia." />
+  <link rel="canonical" href="https://zullabs.co.id/tameng/" />
+  <meta name="theme-color" content="#030711" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zullabs.co.id/tameng/" />
+  <meta property="og:title" content="Tameng Anti-Deepfake (MIT PhotoGuard) — Panduan Zul Labs" />
+  <meta property="og:description" content="Link resmi GitHub PhotoGuard MIT + panduan langkah demi langkah cara mencobanya gratis di Google Colab." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #030711;
+      --bg-2: #070e1d;
+      --card: rgba(11, 20, 38, 0.78);
+      --card-border: rgba(148, 163, 184, 0.14);
+      --card-border-hover: rgba(0, 229, 199, 0.42);
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --dim: #64748b;
+      --teal: #00e5c7;
+      --teal-soft: rgba(0, 229, 199, 0.12);
+      --amber: #ff9e4a;
+      --amber-soft: rgba(255, 158, 74, 0.12);
+      --red: #ff5c7c;
+      --red-soft: rgba(255, 92, 124, 0.12);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background:
+        radial-gradient(900px 500px at 80% -10%, rgba(0, 229, 199, 0.12), transparent 60%),
+        radial-gradient(700px 420px at 10% 15%, rgba(255, 158, 74, 0.08), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(148, 163, 184, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: -1;
+      mask-image: radial-gradient(circle at 50% 25%, #000 20%, transparent 80%);
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Nav */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(3, 7, 17, 0.78);
+      border-bottom: 1px solid var(--card-border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      gap: 12px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Archivo Black', sans-serif;
+      letter-spacing: 0.04em;
+      font-size: 15px;
+    }
+    .brand-dot { color: var(--teal); }
+    .ig-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.03);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--teal);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .ig-pill:hover {
+      border-color: var(--card-border-hover);
+      background: var(--teal-soft);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 44px 0 28px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--teal-soft);
+      border: 1px solid rgba(0, 229, 199, 0.28);
+      color: var(--teal);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 10px var(--teal);
+    }
+    h1 {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: clamp(28px, 6vw, 44px);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+    h1 .accent {
+      background: linear-gradient(95deg, #00e5c7 0%, #7ef7e6 55%, #ff9e4a 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .lead {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 640px;
+      margin-bottom: 24px;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 13px 20px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 0.16s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary {
+      background: linear-gradient(135deg, #00e5c7, #00bfa5);
+      color: #030711;
+      box-shadow: 0 10px 28px rgba(0, 229, 199, 0.22);
+    }
+    .btn-primary:hover {
+      box-shadow: 0 14px 34px rgba(0, 229, 199, 0.34);
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background: var(--card);
+      border-color: var(--card-border);
+      color: var(--text);
+    }
+    .btn-secondary:hover {
+      border-color: var(--card-border-hover);
+      background: rgba(0, 229, 199, 0.08);
+    }
+
+    /* Sections */
+    section {
+      margin: 26px 0;
+    }
+    .section-kicker {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 8px;
+    }
+    h2 {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: clamp(20px, 4vw, 26px);
+      line-height: 1.25;
+      margin-bottom: 14px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 22px;
+      backdrop-filter: blur(12px);
+    }
+
+    /* Interactive Pixel Demo */
+    .demo-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .toggle-group {
+      display: inline-flex;
+      background: rgba(3, 7, 17, 0.8);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 4px;
+      gap: 4px;
+    }
+    .toggle-btn {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 7px 12px;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .toggle-btn.active {
+      background: var(--teal);
+      color: #030711;
+    }
+    .toggle-btn.active.shield-on {
+      background: var(--amber);
+      color: #030711;
+    }
+    .pixel-stage {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .px-box {
+      border-radius: 12px;
+      padding: 14px 12px;
+      border: 1px solid var(--card-border);
+      background: rgba(3, 7, 17, 0.65);
+      text-align: center;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .px-box.shifted {
+      border-color: rgba(255, 158, 74, 0.55);
+    }
+    .px-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .px-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .px-delta {
+      display: inline-block;
+      margin-top: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.12);
+      color: var(--muted);
+    }
+    .px-delta.changed {
+      background: var(--amber-soft);
+      color: var(--amber);
+    }
+    .demo-status {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(0, 229, 199, 0.07);
+      border: 1px solid rgba(0, 229, 199, 0.2);
+      font-size: 13px;
+    }
+    .demo-status.shield {
+      background: var(--amber-soft);
+      border-color: rgba(255, 158, 74, 0.34);
+    }
+    .demo-status strong { color: var(--text); }
+
+    /* Resource Grid */
+    .res-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+    .res-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 18px;
+      transition: border-color 0.2s, transform 0.18s;
+    }
+    .res-card:hover {
+      border-color: var(--card-border-hover);
+      transform: translateY(-2px);
+    }
+    .res-tag {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: var(--teal-soft);
+      color: var(--teal);
+      margin-bottom: 8px;
+    }
+    .res-tag--amber {
+      background: var(--amber-soft);
+      color: var(--amber);
+    }
+    .res-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .res-card p {
+      font-size: 13.5px;
+      color: var(--muted);
+    }
+    .res-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--teal);
+    }
+
+    /* Steps */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .step {
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 14px;
+      align-items: start;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .step-num {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--teal-soft);
+      border: 1px solid rgba(0, 229, 199, 0.3);
+      color: var(--teal);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .step p {
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .step code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      background: rgba(148, 163, 184, 0.14);
+      color: #e2e8f0;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    /* Code Block */
+    .code-wrap {
+      margin-top: 16px;
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+      background: #050b18;
+      overflow: hidden;
+    }
+    .code-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--card-border);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      color: var(--muted);
+    }
+    .copy-btn {
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--teal);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+    .copy-btn:hover { background: var(--teal-soft); }
+    pre {
+      padding: 14px 16px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: #cbd5e1;
+    }
+
+    /* Honest Engineer Note */
+    .honest {
+      border-color: rgba(255, 158, 74, 0.32);
+      background: linear-gradient(180deg, rgba(255, 158, 74, 0.07), rgba(11, 20, 38, 0.85));
+    }
+    .honest ul {
+      margin-top: 10px;
+      padding-left: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .honest strong { color: var(--text); }
+
+    /* Free E-book Branding Box */
+    .ebook-box {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background: linear-gradient(135deg, rgba(0, 229, 199, 0.1), rgba(255, 158, 74, 0.08));
+      border: 1px solid rgba(0, 229, 199, 0.28);
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+    .ebook-box h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .ebook-box p {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 480px;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 42px;
+      padding: 24px 0 40px;
+      border-top: 1px solid var(--card-border);
+      font-size: 12.5px;
+      color: var(--dim);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    footer a:hover { color: var(--teal); }
+
+    @media (max-width: 640px) {
+      .res-grid { grid-template-columns: 1fr; }
+      .cta-row .btn { width: 100%; }
+      .hero { padding-top: 30px; }
+      .px-val { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a href="../" class="brand" aria-label="Beranda Zul Labs">
+        <svg viewBox="0 0 64 64" width="28" height="28" aria-hidden="true">
+          <defs>
+            <linearGradient id="zl-g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#00e5c7" />
+              <stop offset="0.55" stop-color="#00bfa5" />
+              <stop offset="1" stop-color="#ff9e4a" />
+            </linearGradient>
+          </defs>
+          <rect width="64" height="64" rx="16" fill="url(#zl-g)" />
+          <path d="M18 18h28v6L27 40h19v6H18v-6l19-16H18z" fill="#030711" />
+        </svg>
+        <span>ZUL LABS<span class="brand-dot">.</span></span>
+      </a>
+      <a class="ig-pill" href="https://instagram.com/zullabs.id" target="_blank" rel="noopener noreferrer">
+        @zullabs.id ↗
+      </a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="eyebrow"><span class="eyebrow-dot"></span>Panduan Resmi · Keyword TAMENG</div>
+      <h1>Tameng Anti-Deepfake:<br /><span class="accent">MIT PhotoGuard</span></h1>
+      <p class="lead">
+        Semua tautan resmi dari peneliti <strong>MIT CSAIL</strong> (lab Aleksander Madry, paper ICML 2023) plus langkah praktis cara mencobanya gratis di <strong>Google Colab</strong> — dijelaskan dalam bahasa manusia.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://github.com/MadryLab/photoguard" target="_blank" rel="noopener noreferrer">
+          Buka GitHub PhotoGuard ↗
+        </a>
+        <a class="btn btn-secondary" href="https://colab.research.google.com/drive/1P9_Xkbb05d5ynuvucFO6TjXJoXLq_Vyg?usp=sharing" target="_blank" rel="noopener noreferrer">
+          Coba Langsung di Google Colab (Gratis) ↗
+        </a>
+      </div>
+    </section>
+
+    <!-- Interactive 10-Second Visual -->
+    <section>
+      <div class="card">
+        <div class="demo-header">
+          <div>
+            <div class="section-kicker">Simulasi Singkat · 1 Piksel Wajah</div>
+            <h2 style="margin-bottom:0;font-size:19px;">Kenapa Mata Tidak Lihat, Tapi AI Kacau?</h2>
+          </div>
+          <div class="toggle-group" role="tablist" aria-label="Mode simulasi piksel">
+            <button class="toggle-btn active" id="btnNormal" type="button">Foto Asli</button>
+            <button class="toggle-btn" id="btnShield" type="button">Tameng ±1 (200×)</button>
+          </div>
+        </div>
+
+        <div class="pixel-stage">
+          <div class="px-box" id="boxR">
+            <div class="px-label">MERAH (R)</div>
+            <div class="px-val" id="valR" style="color:#ff7b93;">189</div>
+            <span class="px-delta" id="delR">Asli</span>
+          </div>
+          <div class="px-box" id="boxG">
+            <div class="px-label">HIJAU (G)</div>
+            <div class="px-val" id="valG" style="color:#00e5c7;">143</div>
+            <span class="px-delta" id="delG">Asli</span>
+          </div>
+          <div class="px-box" id="boxB">
+            <div class="px-label">BIRU (B)</div>
+            <div class="px-val" id="valB" style="color:#60a5fa;">119</div>
+            <span class="px-delta" id="delB">Asli</span>
+          </div>
+        </div>
+
+        <div class="demo-status" id="demoStatus">
+          <span><strong>Mata manusia:</strong> Wajah normal · <strong>Otak AI:</strong> Pola terbaca jelas → mudah diedit jadi palsu.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Official MIT Links -->
+    <section>
+      <div class="section-kicker">Tautan Resmi MIT CSAIL</div>
+      <h2>Pilih Cara Paling Nyaman buat Mulai</h2>
+      <div class="res-grid">
+        <a class="res-card" href="https://colab.research.google.com/drive/1P9_Xkbb05d5ynuvucFO6TjXJoXLq_Vyg?usp=sharing" target="_blank" rel="noopener noreferrer">
+          <div>
+            <span class="res-tag">Paling Mudah · Colab Gratis</span>
+            <h3>1. Colab Encoder Attack (Img2Img)</h3>
+            <p>Versi paling ringan. Cocok untuk dicoba langsung di GPU T4 gratis Google Colab tanpa install apa pun di laptop.</p>
+          </div>
+          <span class="res-link">Buka Notebook Colab ↗</span>
+        </a>
+
+        <a class="res-card" href="https://colab.research.google.com/drive/1q-p8_PWROVOAl6B07znev0W-Z9gKgoW2?usp=sharing" target="_blank" rel="noopener noreferrer">
+          <div>
+            <span class="res-tag">Colab Gratis · Edit Sebagian</span>
+            <h3>2. Colab Encoder Attack (Inpainting)</h3>
+            <p>Skenario saat orang lain mencoba mengganti latar belakang atau sebagian area foto menggunakan AI inpainting.</p>
+          </div>
+          <span class="res-link">Buka Notebook Inpainting ↗</span>
+        </a>
+
+        <a class="res-card" href="https://github.com/MadryLab/photoguard" target="_blank" rel="noopener noreferrer">
+          <div>
+            <span class="res-tag res-tag--amber">Kode Sumber · Open Source</span>
+            <h3>3. Repo GitHub MadryLab/photoguard</h3>
+            <p>Repositori resmi lengkap berisi semua notebook (termasuk Complex Diffusion Attack) dan demo aplikasi lokal Gradio.</p>
+          </div>
+          <span class="res-link">github.com/MadryLab/photoguard ↗</span>
+        </a>
+
+        <a class="res-card" href="https://arxiv.org/abs/2302.06588" target="_blank" rel="noopener noreferrer">
+          <div>
+            <span class="res-tag res-tag--amber">Paper Ilmiah · ICML 2023</span>
+            <h3>4. Paper &amp; Blog Resmi MIT</h3>
+            <p><em>"Raising the Cost of Malicious AI-Powered Image Editing"</em> — Salman, Khaddaj, Leclerc, Ilyas, &amp; Madry (MIT).</p>
+          </div>
+          <span class="res-link">Baca Paper arXiv:2302.06588 ↗</span>
+        </a>
+      </div>
+      <p style="margin-top:12px;font-size:13px;color:var(--muted);">
+        Referensi tambahan dari peneliti MIT:
+        <a href="https://gradientscience.org/photoguard" target="_blank" rel="noopener noreferrer" style="color:var(--teal);text-decoration:underline;">Blog Gradient Science</a> ·
+        <a href="https://huggingface.co/spaces/hadisalman/photoguard" target="_blank" rel="noopener noreferrer" style="color:var(--teal);text-decoration:underline;">Demo Hugging Face Space</a>
+      </p>
+    </section>
+
+    <!-- Step-by-Step Colab Guide -->
+    <section>
+      <div class="section-kicker">Langkah Demi Langkah</div>
+      <h2>Cara Coba Gratis di Google Colab (Tanpa Laptop Mahal)</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div>
+            <h3>Buka Notebook Colab #1 dan Login Google</h3>
+            <p>Klik kartu <strong>Colab Encoder Attack (Img2Img)</strong> di atas. Setelah terbuka, klik menu <code>File → Save a copy in Drive</code> supaya kamu punya salinan pribadi yang bisa diedit.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div>
+            <h3>Aktifkan GPU Gratis (T4)</h3>
+            <p>Di menu atas Google Colab, pilih <code>Runtime → Change runtime type → Hardware accelerator: T4 GPU</code> lalu klik <strong>Save</strong>. Tanpa GPU, proses 200 iterasi akan sangat lambat.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div>
+            <h3>Jalankan Sel Instalasi dari Atas ke Bawah</h3>
+            <p>Klik ikon tombol putar (<code>▶</code>) pada tiap blok kode secara berurutan. Tunggu pustaka <code>diffusers</code>, <code>torch</code>, dan model Stable Diffusion selesai terunduh di server Colab.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div>
+            <h3>Siapkan Token Hugging Face (Jika Diminta)</h3>
+            <p>Beberapa versi model meminta login Hugging Face. Buat akun gratis di <a href="https://huggingface.co/settings/tokens" target="_blank" rel="noopener noreferrer" style="color:var(--teal);text-decoration:underline;">huggingface.co/settings/tokens</a>, buat token tipe <code>Read</code>, lalu tempel saat diminta.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">05</div>
+          <div>
+            <h3>Uji dengan Foto Sampel &amp; Bandingkan Hasilnya</h3>
+            <p>Jalankan dulu dengan foto bawaan notebook untuk melihat hasilnya, lalu coba unggah foto uji sendiri. Perhatikan bagaimana hasil edit AI pada foto ber-tameng menjadi rusak/tidak wajar dibanding foto polos.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-wrap">
+        <div class="code-bar">
+          <span>Opsional · Jalankan di PC/Laptop Lokal (Butuh GPU NVIDIA)</span>
+          <button class="copy-btn" id="copyBtn" type="button">Salin perintah</button>
+        </div>
+        <pre id="localCmd">git clone https://github.com/MadryLab/photoguard.git
+cd photoguard
+conda create -n photoguard python=3.10 -y
+conda activate photoguard
+pip install -r requirements.txt
+huggingface-cli login
+cd demo &amp;&amp; python app.py</pre>
+      </div>
+    </section>
+
+    <!-- Honest Engineer Note -->
+    <section>
+      <div class="card honest">
+        <div class="section-kicker" style="color:var(--amber);">Catatan Jujur Engineer</div>
+        <h2>Hal yang Wajib Kamu Tahu Sebelum Mengandalkannya</h2>
+        <ul>
+          <li><strong>Spesifik ke model target:</strong> Implementasi asli MIT ini dibuat untuk menargetkan pipeline <strong>Stable Diffusion</strong>. Model AI editor komersial generasi lebih baru punya arsitektur encoder berbeda sehingga efek perlindungannya bisa berkurang.</li>
+          <li><strong>Sensitif terhadap kompresi ekstrem:</strong> Jika foto di-crop besar-besaran, di-screenshot berulang, atau dikompresi berat oleh media sosial, pergeseran piksel tipis <code>±1</code> bisa ikut tergerus.</li>
+          <li><strong>Nilai utamanya:</strong> Anggap PhotoGuard sebagai <strong>fondasi belajar &amp; eksperimen keamanan AI</strong> (<em>adversarial machine learning</em>) — bukan jaminan kebal 100%, tapi titik awal nyata untuk memahami bagaimana peneliti melawan penyalahgunaan deepfake.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Soft Branding Free E-book -->
+    <section>
+      <div class="ebook-box">
+        <div>
+          <div class="section-kicker" style="margin-bottom:4px;">Edukasi AI Gratis · Zul Labs</div>
+          <h3>Mau belajar AI praktis lainnya dalam bahasa manusia?</h3>
+          <p>Ambil e-book gratis kami lewat link bio, atau follow <strong>@zullabs.id</strong> biar nggak ketinggalan bedah teknologi AI berikutnya.</p>
+        </div>
+        <a class="btn btn-primary" href="https://lynk.id/zullabs" target="_blank" rel="noopener noreferrer">
+          Ambil E-Book Gratis ↗
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <span>© 2026 PT Zul Labs Teknologi · Edukasi AI dalam bahasa manusia</span>
+      <div style="display:flex;gap:14px;">
+        <a href="../">Beranda</a>
+        <a href="https://instagram.com/zullabs.id" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="../kebijakan-privasi.html">Kebijakan Privasi</a>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      const btnNormal = document.getElementById('btnNormal');
+      const btnShield = document.getElementById('btnShield');
+      const valR = document.getElementById('valR');
+      const valG = document.getElementById('valG');
+      const valB = document.getElementById('valB');
+      const delR = document.getElementById('delR');
+      const delG = document.getElementById('delG');
+      const delB = document.getElementById('delB');
+      const boxes = [document.getElementById('boxR'), document.getElementById('boxG'), document.getElementById('boxB')];
+      const status = document.getElementById('demoStatus');
+
+      function setMode(shield) {
+        btnNormal.classList.toggle('active', !shield);
+        btnShield.classList.toggle('active', shield);
+        btnShield.classList.toggle('shield-on', shield);
+        boxes.forEach(b => b.classList.toggle('shifted', shield));
+
+        if (!shield) {
+          valR.textContent = '189';
+          valG.textContent = '143';
+          valB.textContent = '119';
+          delR.textContent = 'Asli';
+          delG.textContent = 'Asli';
+          delB.textContent = 'Asli';
+          [delR, delG, delB].forEach(d => d.classList.remove('changed'));
+          status.classList.remove('shield');
+          status.innerHTML = '<span><strong>Mata manusia:</strong> Wajah normal · <strong>Otak AI:</strong> Pola terbaca jelas → mudah diedit jadi palsu.</span>';
+        } else {
+          valR.textContent = '190';
+          valG.textContent = '142';
+          valB.textContent = '120';
+          delR.textContent = '+1';
+          delG.textContent = '-1';
+          delB.textContent = '+1';
+          [delR, delG, delB].forEach(d => d.classList.add('changed'));
+          status.classList.add('shield');
+          status.innerHTML = '<span><strong>Mata manusia:</strong> Tetap identik! · <strong>Otak AI:</strong> Pola vektor kacau setelah 200 iterasi → hasil edit rusak.</span>';
+        }
+      }
+
+      btnNormal.addEventListener('click', () => setMode(false));
+      btnShield.addEventListener('click', () => setMode(true));
+
+      const copyBtn = document.getElementById('copyBtn');
+      const localCmd = document.getElementById('localCmd');
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(localCmd.textContent.trim());
+          copyBtn.textContent = 'Tersalin ✓';
+          setTimeout(() => (copyBtn.textContent = 'Salin perintah'), 1800);
+        } catch {
+          copyBtn.textContent = 'Gagal salin';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
