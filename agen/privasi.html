@@ -24,7 +24,7 @@
 <body>
 <main>
 <h1>Kebijakan Privasi Jarvis</h1>
-<p class="kecil">Berlaku untuk Jarvis, asisten AI di WhatsApp, serta ekstensi browser "Zul Labs Agen — Browser" dan aplikasi Android "ZL Agen" (id.zullabs.agen). Versi 27 November 2026 (revisi 2: pesan suara). Baca juga <a href="/agen/syarat">Syarat Layanan</a>.</p>
+<p class="kecil">Berlaku untuk Jarvis, asisten AI di WhatsApp, serta ekstensi browser "Zul Labs Agen — Browser" dan aplikasi Android "ZL Agen" (id.zullabs.agen). Versi 27 November 2026 (revisi 3: balasan suara). Baca juga <a href="/agen/syarat">Syarat Layanan</a>.</p>
 <nav><a href="#id">Bahasa Indonesia</a><a href="#en">English</a></nav>
 
 <section id="id">
@@ -37,7 +37,7 @@
 <li><strong>Browser di server kami</strong> (bawaan). Setiap pengguna mendapat browser tersendiri yang terpisah dari pengguna lain, tanpa cookie atau login tersimpan, dan ditutup otomatis setelah 10 menit tidak dipakai. Browser ini hanya bisa membuka internet publik.</li>
 <li><strong>Browser di perangkat Anda</strong>, hanya bila Anda menyambungkannya dengan /sambung: ekstensi Zul Labs Agen di komputer (bekerja di satu tab khusus), atau browser di dalam aplikasi ZL Agen di HP Android.</li>
 </ul>
-<p>Jarvis berjalan di atas model AI dari penyedia pihak ketiga yang dipilih dan diatur Zul Labs. Pesan suara (voice note) yang Anda kirim diubah menjadi teks oleh perangkat lunak pengenal suara yang berjalan di server kami sendiri; rekaman suaranya tidak dikirim ke pihak lain, hanya teks hasilnya yang diproses seperti pesan biasa.</p>
+<p>Jarvis berjalan di atas model AI dari penyedia pihak ketiga yang dipilih dan diatur Zul Labs. Pesan suara (voice note) yang Anda kirim diubah menjadi teks oleh perangkat lunak pengenal suara yang berjalan di server kami sendiri; rekaman suaranya tidak dikirim ke pihak lain, hanya teks hasilnya yang diproses seperti pesan biasa. Balasan suara (perintah /suara) juga dibuat oleh perangkat lunak pengubah teks menjadi suara yang berjalan di server kami sendiri: teks jawaban tidak dikirim ke pihak lain untuk itu, dan berkas suaranya langsung dihapus dari server begitu selesai dibuat dan dikirim ke WhatsApp Anda.</p>
 
 <h2>Persetujuan</h2>
 <p>Pendaftaran ditinjau admin. Setelah disetujui, Jarvis mengirim ringkasan kebijakan ini dan Syarat Layanan; layanan baru bisa dipakai setelah Anda membalas <strong>/setuju</strong>. Waktu dan versi persetujuan Anda kami catat. Bila kebijakan ini berubah secara penting, Anda akan diminta menyetujui versi baru.</p>
@@ -49,7 +49,7 @@
 <tr><td>Isi pesan, pesan suara (beserta teks hasil pengenalannya), gambar, dan berkas yang Anda kirim ke Jarvis</td><td>Setiap kali Anda mengirimnya</td><td>Memahami dan memenuhi permintaan Anda</td></tr>
 <tr><td>Riwayat percakapan (20 pesan terakhir)</td><td>Selama percakapan berjalan</td><td>Agar Jarvis ingat konteks percakapan</td></tr>
 <tr><td>Ingatan jangka panjang (bila fitur ini aktif): hal yang Anda minta Jarvis ingat, atau preferensi yang Jarvis catat, misalnya nama panggilan, gaya jawaban, atau pekerjaan Anda</td><td>Saat Anda memintanya, atau saat Jarvis mencatat preferensi Anda</td><td>Agar Jarvis lebih membantu dari waktu ke waktu tanpa Anda mengulang</td></tr>
-<tr><td>Jumlah pesan per hari dan perkiraan biaya pemakaian</td><td>Setiap pesan</td><td>Kuota harian, batas biaya bulanan, dan mencegah penyalahgunaan</td></tr>
+<tr><td>Jumlah pesan dan balasan suara per hari, serta perkiraan biaya pemakaian</td><td>Setiap pesan</td><td>Kuota harian, jatah balasan suara, batas biaya bulanan, dan mencegah penyalahgunaan</td></tr>
 <tr><td>Teks, struktur, dan alamat (URL) halaman web yang dibuka Jarvis; tangkapan layar bila diambil</td><td>Saat Jarvis membuka atau membaca halaman</td><td>Memenuhi permintaan Anda, mengirim hasil kepada Anda</td></tr>
 <tr><td>Catatan aksi browser (buka, klik, ketik, gulir) dan hasilnya</td><td>Setiap aksi</td><td>Keamanan, pemecahan masalah, dan batas 300 aksi per jam</td></tr>
 <tr><td>ID anonim perangkat (Firebase), nama perangkat, platform, versi</td><td>Saat menyambungkan perangkat</td><td>Mengenali perangkat yang Anda sambungkan ke nomor WhatsApp Anda</td></tr>
@@ -80,6 +80,7 @@
 <ul>
 <li>Riwayat percakapan: hanya 20 pesan terakhir. Terhapus saat Anda mengirim /baru, atau otomatis setelah 30 hari tanpa percakapan.</li>
 <li>Berkas dan rekaman pesan suara yang Anda kirim, berkas hasil Jarvis, dan tangkapan layar: dihapus otomatis 30 hari setelah dibuat.</li>
+<li>Balasan suara yang dibuat Jarvis: berkasnya langsung dihapus dari server begitu selesai dibuat; yang tersimpan hanya di WhatsApp Anda. Hitungan balasan suara hanya disimpan untuk hari berjalan.</li>
 <li>Catatan aksi browser dan catatan teknis server: dihapus otomatis setelah 90 hari.</li>
 <li>Catatan tindakan pengelola atas akun (audit): disimpan 1 tahun.</li>
 <li>Ingatan jangka panjang: disimpan selama akun Anda ada. Anda dapat melihat, mengubah, atau menghapusnya kapan saja lewat chat, dan seluruhnya terhapus bila akun dihapus.</li>
@@ -112,13 +113,13 @@
 
 <section id="en" lang="en">
 <h1>Jarvis Privacy Policy</h1>
-<p class="kecil">Applies to Jarvis, the AI assistant on WhatsApp, and to the browser extension "Zul Labs Agen — Browser" and the Android app "ZL Agen" (id.zullabs.agen). Version 27 November 2026 (revision 2: voice notes). See also the <a href="/agen/syarat#en">Terms of Service</a>. If the Indonesian and English versions differ, the Indonesian version prevails.</p>
+<p class="kecil">Applies to Jarvis, the AI assistant on WhatsApp, and to the browser extension "Zul Labs Agen — Browser" and the Android app "ZL Agen" (id.zullabs.agen). Version 27 November 2026 (revision 3: voice replies). See also the <a href="/agen/syarat#en">Terms of Service</a>. If the Indonesian and English versions differ, the Indonesian version prevails.</p>
 
 <h2>Who we are</h2>
 <p>Jarvis is made and operated by PT Zul Labs Teknologi, Sibolga, Indonesia, the controller of your personal data. Privacy questions: <a href="mailto:admin@zullabs.co.id">admin@zullabs.co.id</a>.</p>
 
 <h2>What Jarvis is</h2>
-<p>Jarvis is an AI assistant you use through WhatsApp chat. It answers questions, views images and reads text files you send, creates files, and opens websites at your request, either in a <strong>browser on our server</strong> (default; one isolated browser per user, no cookies or logins kept, public internet only, closed after 10 idle minutes) or in a <strong>browser on your own device</strong>, only after you connect it with /sambung (the Zul Labs Agen extension, which works in one dedicated tab, or the built-in browser of the ZL Agen Android app). Jarvis runs on AI models from third-party providers selected and configured by Zul Labs. Voice notes you send are converted to text by speech-recognition software running on our own server; the recording itself is not sent to anyone else, only the resulting text is processed like a normal message.</p>
+<p>Jarvis is an AI assistant you use through WhatsApp chat. It answers questions, views images and reads text files you send, creates files, and opens websites at your request, either in a <strong>browser on our server</strong> (default; one isolated browser per user, no cookies or logins kept, public internet only, closed after 10 idle minutes) or in a <strong>browser on your own device</strong>, only after you connect it with /sambung (the Zul Labs Agen extension, which works in one dedicated tab, or the built-in browser of the ZL Agen Android app). Jarvis runs on AI models from third-party providers selected and configured by Zul Labs. Voice notes you send are converted to text by speech-recognition software running on our own server; the recording itself is not sent to anyone else, only the resulting text is processed like a normal message. Voice replies (the /suara command) are likewise produced by text-to-speech software running on our own server: the answer text is not sent to anyone else for this, and the audio file is deleted from the server as soon as it has been produced and sent to your WhatsApp.</p>
 
 <h2>Consent</h2>
 <p>Sign-ups are reviewed by an administrator. Once approved, Jarvis sends a summary of this policy and the Terms of Service; the service can only be used after you reply <strong>/setuju</strong> ("I agree"). We record the time and version of your consent. If this policy changes materially, you will be asked to agree to the new version.</p>
@@ -130,7 +131,7 @@
 <tr><td>Messages, voice notes (and their transcribed text), images and files you send to Jarvis</td><td>Whenever you send them</td><td>Understanding and fulfilling your requests</td></tr>
 <tr><td>Conversation history (last 20 messages)</td><td>During a conversation</td><td>So Jarvis remembers context</td></tr>
 <tr><td>Long-term memory (when this feature is enabled): things you ask Jarvis to remember, or preferences it notes, such as your nickname, preferred answer style or occupation</td><td>When you ask, or when Jarvis notes a preference</td><td>So Jarvis becomes more helpful over time without you repeating yourself</td></tr>
-<tr><td>Daily message count and estimated usage cost</td><td>Every message</td><td>Daily quota, monthly cost limit, abuse prevention</td></tr>
+<tr><td>Daily message and voice-reply count, and estimated usage cost</td><td>Every message</td><td>Daily quota, voice-reply allowance, monthly cost limit, abuse prevention</td></tr>
 <tr><td>Text, structure and address (URL) of pages Jarvis opens; screenshots when taken</td><td>When Jarvis opens or reads a page</td><td>Fulfilling your request and sending you results</td></tr>
 <tr><td>Browser action log (open, click, type, scroll) and results</td><td>Every action</td><td>Security, troubleshooting, the 300-actions-per-hour limit</td></tr>
 <tr><td>Anonymous device ID (Firebase), device name, platform, version</td><td>When connecting a device</td><td>Recognising the device linked to your WhatsApp number</td></tr>
@@ -161,6 +162,7 @@
 <ul>
 <li>Conversation history: last 20 messages only; erased when you send /baru, or automatically after 30 days without conversation.</li>
 <li>Files and voice-note recordings you send, files Jarvis produces, and screenshots: deleted automatically 30 days after creation.</li>
+<li>Voice replies produced by Jarvis: the audio file is deleted from the server as soon as it is produced; the only copy is in your WhatsApp. The voice-reply count is kept for the current day only.</li>
 <li>Browser action log and server technical log: deleted automatically after 90 days.</li>
 <li>Log of operator actions on accounts (audit): kept for 1 year.</li>
 <li>Long-term memory: kept while your account exists; you can view, change or delete it at any time through chat, and all of it is erased when your account is deleted.</li>
