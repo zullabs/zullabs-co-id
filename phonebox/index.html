@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PhoneBox (Ubah HP Android Lama Jadi Desk Panel PC) — Panduan Zul Labs</title>
+  <meta name="description" content="Link resmi GitHub ersinkoc/phonebox (7.300+ stars, MIT open-source), live demo, dan panduan pasang 1 baris perintah untuk mengubah HP Android bekas jadi Stream Deck, monitor PC, dan panel kontrol AI coding." />
+  <link rel="canonical" href="https://zullabs.co.id/phonebox/" />
+  <meta name="theme-color" content="#030711" />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://zullabs.co.id/phonebox/" />
+  <meta property="og:title" content="PhoneBox — Sulap HP Android Bekas Jadi Desk Panel PC Gratis" />
+  <meta property="og:description" content="Link GitHub resmi ersinkoc/phonebox + panduan instalasi 1 baris PowerShell/Bash dalam bahasa manusia." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #030711;
+      --card: rgba(11, 20, 38, 0.80);
+      --card-border: rgba(148, 163, 184, 0.14);
+      --card-border-hover: rgba(0, 229, 199, 0.45);
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --dim: #64748b;
+      --teal: #00e5c7;
+      --teal-soft: rgba(0, 229, 199, 0.12);
+      --amber: #ff9e4a;
+      --amber-soft: rgba(255, 158, 74, 0.12);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background:
+        radial-gradient(900px 500px at 80% -10%, rgba(0, 229, 199, 0.13), transparent 60%),
+        radial-gradient(700px 420px at 10% 15%, rgba(255, 158, 74, 0.08), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+    .grid-bg {
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(148, 163, 184, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.04) 1px, transparent 1px);
+      background-size: 40px 40px; pointer-events: none; z-index: -1;
+      mask-image: radial-gradient(circle at 50% 25%, #000 20%, transparent 80%);
+    }
+    .wrap { width: 100%; max-width: 820px; margin: 0 auto; padding: 0 20px; }
+    .nav {
+      position: sticky; top: 0; z-index: 40;
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      background: rgba(3, 7, 17, 0.78); border-bottom: 1px solid var(--card-border);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 12px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-family: 'Archivo Black', sans-serif; letter-spacing: 0.04em; font-size: 15px; }
+    .brand-dot { color: var(--teal); }
+    .ig-pill {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px;
+      border: 1px solid var(--card-border); background: rgba(255, 255, 255, 0.03);
+      font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--teal);
+    }
+    .hero { padding: 42px 0 26px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px;
+      background: var(--teal-soft); border: 1px solid rgba(0, 229, 199, 0.28); color: var(--teal);
+      font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 18px;
+    }
+    .eyebrow-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 10px var(--teal); }
+    h1 { font-family: 'Archivo Black', sans-serif; font-size: clamp(28px, 6vw, 44px); line-height: 1.12; letter-spacing: -0.02em; margin-bottom: 14px; }
+    h1 .accent { background: linear-gradient(95deg, #00e5c7 0%, #7ef7e6 55%, #ff9e4a 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .lead { font-size: 16px; color: var(--muted); max-width: 650px; margin-bottom: 24px; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      padding: 13px 20px; border-radius: 12px; font-weight: 600; font-size: 14px; cursor: pointer;
+      border: 1px solid transparent; transition: transform 0.16s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .btn-primary { background: linear-gradient(135deg, #00e5c7, #00bfa5); color: #030711; box-shadow: 0 10px 28px rgba(0, 229, 199, 0.22); }
+    .btn-secondary { background: var(--card); border-color: var(--card-border); color: var(--text); }
+    .btn-secondary:hover { border-color: var(--card-border-hover); background: rgba(0, 229, 199, 0.08); }
+    section { margin: 26px 0; }
+    .section-kicker { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); margin-bottom: 8px; }
+    h2 { font-family: 'Archivo Black', sans-serif; font-size: clamp(20px, 4vw, 26px); line-height: 1.25; margin-bottom: 14px; }
+    .card { background: var(--card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 22px; backdrop-filter: blur(12px); }
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
+    .stat-box { border-radius: 12px; padding: 14px 12px; border: 1px solid var(--card-border); background: rgba(3, 7, 17, 0.65); text-align: center; }
+    .stat-num { font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 700; color: var(--teal); }
+    .stat-lbl { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .res-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .res-card {
+      display: flex; flex-direction: column; justify-content: space-between; gap: 12px;
+      background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 18px;
+      transition: border-color 0.2s, transform 0.18s;
+    }
+    .res-card:hover { border-color: var(--card-border-hover); transform: translateY(-2px); }
+    .res-tag { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 8px; border-radius: 6px; background: var(--teal-soft); color: var(--teal); margin-bottom: 8px; }
+    .res-tag--amber { background: var(--amber-soft); color: var(--amber); }
+    .res-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .res-card p { font-size: 13.5px; color: var(--muted); }
+    .res-link { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: var(--teal); }
+    .apps-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .pill {
+      padding: 6px 12px; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 12px;
+      background: rgba(255, 255, 255, 0.04); border: 1px solid var(--card-border); color: #e2e8f0;
+    }
+    .code-wrap { margin-top: 14px; border-radius: 14px; border: 1px solid var(--card-border); background: #050b18; overflow: hidden; }
+    .code-bar { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid var(--card-border); font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--muted); }
+    .copy-btn { border: 1px solid var(--card-border); background: rgba(255, 255, 255, 0.04); color: var(--teal); font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; padding: 5px 10px; border-radius: 7px; cursor: pointer; }
+    pre { padding: 14px 16px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; line-height: 1.75; color: #cbd5e1; }
+    .steps { display: flex; flex-direction: column; gap: 12px; }
+    .step { display: grid; grid-template-columns: 38px 1fr; gap: 14px; align-items: start; background: var(--card); border: 1px solid var(--card-border); border-radius: 14px; padding: 16px; }
+    .step-num { width: 38px; height: 38px; border-radius: 10px; background: var(--teal-soft); border: 1px solid rgba(0, 229, 199, 0.3); color: var(--teal); font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+    .step h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .step p { font-size: 14px; color: var(--muted); }
+    .step code { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; background: rgba(148, 163, 184, 0.14); color: #e2e8f0; padding: 2px 6px; border-radius: 6px; }
+    .honest { border-color: rgba(255, 158, 74, 0.32); background: linear-gradient(180deg, rgba(255, 158, 74, 0.07), rgba(11, 20, 38, 0.85)); }
+    .honest ul { margin-top: 10px; padding-left: 18px; display: flex; flex-direction: column; gap: 8px; color: var(--muted); font-size: 14px; }
+    .honest strong { color: var(--text); }
+    .ebook-box { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; background: linear-gradient(135deg, rgba(0, 229, 199, 0.1), rgba(255, 158, 74, 0.08)); border: 1px solid rgba(0, 229, 199, 0.28); border-radius: var(--radius); padding: 22px; }
+    .ebook-box h3 { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+    .ebook-box p { font-size: 14px; color: var(--muted); max-width: 480px; }
+    footer { margin-top: 42px; padding: 24px 0 40px; border-top: 1px solid var(--card-border); font-size: 12.5px; color: var(--dim); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+    @media (max-width: 640px) { .res-grid { grid-template-columns: 1fr; } .cta-row .btn { width: 100%; } .stats-row { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a href="../" class="brand" aria-label="Beranda Zul Labs">
+        <svg viewBox="0 0 64 64" width="28" height="28" aria-hidden="true">
+          <defs><linearGradient id="zl-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00e5c7"/><stop offset="0.55" stop-color="#00bfa5"/><stop offset="1" stop-color="#ff9e4a"/></linearGradient></defs>
+          <rect width="64" height="64" rx="16" fill="url(#zl-g)"/>
+          <path d="M18 18h28v6L27 40h19v6H18v-6l19-16H18z" fill="#030711"/>
+        </svg>
+        <span>ZUL LABS<span class="brand-dot">.</span></span>
+      </a>
+      <a class="ig-pill" href="https://instagram.com/zullabs.id" target="_blank" rel="noopener noreferrer">@zullabs.id ↗</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="eyebrow"><span class="eyebrow-dot"></span>Panduan Resmi · Keyword PHONEBOX</div>
+      <h1>PhoneBox:<br /><span class="accent">Sulap HP Android Lama Jadi Desk Panel PC Gratis</span></h1>
+      <p class="lead">
+        Tautan resmi <strong>ersinkoc/phonebox</strong> (7.300+ stars GitHub, lisensi MIT) dan panduan pasang 1 baris perintah untuk mengubah HP Android bekas jadi Stream Deck, monitor CPU/RAM, panel AI coding (Claude Code, Codex, Antigravity), hingga jam meja — <strong>tanpa root &amp; tanpa akun cloud</strong>.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://github.com/ersinkoc/phonebox" target="_blank" rel="noopener noreferrer">Buka GitHub PhoneBox ↗</a>
+        <a class="btn btn-secondary" href="https://ersinkoc.github.io/phonebox/" target="_blank" rel="noopener noreferrer">Coba Live Demo ↗</a>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-num">137</div>
+          <div class="stat-lbl">Widgets Siap Pakai</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">30</div>
+          <div class="stat-lbl">Template Layout</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">MIT 100%</div>
+          <div class="stat-lbl">Gratis · Tanpa Cloud</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-kicker">Tautan Resmi</div>
+      <h2>Sumber Lengkap PhoneBox</h2>
+      <div class="res-grid">
+        <a class="res-card" href="https://github.com/ersinkoc/phonebox" target="_blank" rel="noopener noreferrer">
+          <div>
+            <span class="res-tag">Open Source · MIT</span>
+            <h3>1. Repo GitHub Resmi</h3>
+            <p>Kode sumber lengkap agent desktop (Windows, Linux, macOS) dan aplikasi Android 5+, dokumentasi bahasa Indonesia tersedia.</p>
+          </div>
+          <span class="res-link">github.com/ersinkoc/phonebox ↗</span>
+        </a>
+        <a class="res-card" href="https://github.com/ersinkoc/phonebox/releases/latest" target="_blank" rel="noopener noreferrer">
+          <div>
+            <span class="res-tag">Download Langsung</span>
+            <h3>2. Rilis Terbaru (Desktop &amp; APK)</h3>
+            <p>Unduh APK Android resmi dan binary desktop agent terbaru langsung dari GitHub Releases (tidak di Play Store).</p>
+          </div>
+          <span class="res-link">GitHub Releases Latest ↗</span>
+        </a>
+        <a class="res-card" href="https://ersinkoc.github.io/phonebox/" target="_blank" rel="noopener noreferrer">
+          <div>
+            <span class="res-tag res-tag--amber">Interactive Preview</span>
+            <h3>3. Live Demo di Browser</h3>
+            <p>Coba klik-klik tampilan desk panel, editor drag-and-drop widget, dan template langsung sebelum install.</p>
+          </div>
+          <span class="res-link">ersinkoc.github.io/phonebox ↗</span>
+        </a>
+        <div class="res-card">
+          <div>
+            <span class="res-tag res-tag--amber">Fitur Andalan</span>
+            <h3>4. Yang Langsung Jalan di HP Lama</h3>
+            <div class="apps-pills">
+              <span class="pill">Stream Deck</span><span class="pill">Task Manager</span><span class="pill">Pomodoro</span>
+              <span class="pill">Claude Code</span><span class="pill">Codex</span><span class="pill">Antigravity</span>
+              <span class="pill">Music &amp; Mic</span><span class="pill">Bedside Clock</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-kicker">Instalasi 2 Menit</div>
+      <h2>Cara Pasang di Laptop &amp; HP Android Lama</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div>
+            <h3>Install Desktop Agent (1 Baris Perintah)</h3>
+            <p>Buka PowerShell biasa di Windows (atau Terminal di Linux/macOS), lalu jalankan skrip setup resmi di bawah. Setelah selesai, halaman pengaturan terbuka otomatis di <code>http://127.0.0.1:8765</code>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div>
+            <h3>Hubungkan HP Android 5+ (USB atau Wi-Fi)</h3>
+            <p><strong>Via USB:</strong> Aktifkan <em>Developer Options → USB Debugging</em>, colok kabel data, lalu biarkan installer memasang aplikasi Android-nya otomatis.<br/><strong>Via Wi-Fi:</strong> Pasang APK dari GitHub Releases, aktifkan mode Wi-Fi di pengaturan <code>127.0.0.1:8765</code>, lalu scan QR pairing.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div>
+            <h3>Pilih Template atau Atur Sendiri (Atau Suruh AI Agent)</h3>
+            <p>Buka menu <strong>Pages</strong> di <code>http://127.0.0.1:8765</code>, pilih dari 30 template siap pakai, seret widget favoritmu, klik <strong>Save</strong>. Pengguna Claude Code/Codex/OpenCode juga bisa mengaktifkan notifikasi &amp; tombol <strong>Allow/Deny</strong> langsung di HP.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-wrap">
+        <div class="code-bar">
+          <span>Salin perintah cepat (Windows PowerShell)</span>
+          <button class="copy-btn" id="copyWinBtn" type="button">Salin Windows</button>
+        </div>
+        <pre id="winCmd">irm https://raw.githubusercontent.com/ersinkoc/phonebox/main/setup.ps1 | iex</pre>
+      </div>
+
+      <div class="code-wrap">
+        <div class="code-bar">
+          <span>Salin perintah cepat (Linux / macOS)</span>
+          <button class="copy-btn" id="copyUnixBtn" type="button">Salin Linux/macOS</button>
+        </div>
+        <pre id="unixCmd">curl -fsSL https://raw.githubusercontent.com/ersinkoc/phonebox/main/setup.sh | bash</pre>
+      </div>
+    </section>
+
+    <section>
+      <div class="card honest">
+        <div class="section-kicker" style="color:var(--amber);">Catatan Jujur Engineer</div>
+        <h2>Yang Wajib Kamu Tahu Sebelum Mencoba</h2>
+        <ul>
+          <li><strong>Khusus Android 5+ (disarankan 6+):</strong> Aplikasi companion iOS masih eksperimental (harus kompilasi sendiri via Xcode) dan belum punya fitur panel penuh seperti Android.</li>
+          <li><strong>Bukan dari Play Store &amp; SmartScreen Windows:</strong> APK resmi hanya ada di GitHub Releases. Agent Windows juga belum bertanda tangan sertifikat rilis penuh sehingga Windows SmartScreen/antivirus mungkin memunculkan peringatan — selalu cek dulu isi <code>setup.ps1</code> sebelum jalan.</li>
+          <li><strong>Jaga Kesehatan Baterai HP Lama:</strong> Kalau HP dicolok USB terus-menerus di meja, aktifkan fitur <em>Protect Battery</em> (batas cas 80%) jika tersedia atau gunakan pairing Wi-Fi + cas berkala agar baterai tidak cepat kembung.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="ebook-box">
+        <div>
+          <div class="section-kicker" style="margin-bottom:4px;">Edukasi AI Gratis · Zul Labs</div>
+          <h3>Mau belajar AI praktis lainnya dalam bahasa manusia?</h3>
+          <p>Ambil e-book &amp; kumpulan prompt gratis kami lewat link bio, atau follow <strong>@zullabs.id</strong> untuk bedah tools open-source viral berikutnya.</p>
+        </div>
+        <a class="btn btn-primary" href="https://lynk.id/zullabs" target="_blank" rel="noopener noreferrer">Ambil E-Book Gratis ↗</a>
+      </div>
+    </section>
+
+    <footer>
+      <span>© 2026 PT Zul Labs Teknologi · Edukasi AI dalam bahasa manusia</span>
+      <div style="display:flex;gap:14px;">
+        <a href="../">Beranda</a>
+        <a href="https://instagram.com/zullabs.id" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="../kebijakan-privasi.html">Kebijakan Privasi</a>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    function bindCopy(btnId, preId, label) {
+      const btn = document.getElementById(btnId);
+      const pre = document.getElementById(preId);
+      btn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(pre.textContent.trim());
+          btn.textContent = 'Tersalin ✓';
+          setTimeout(() => (btn.textContent = label), 1800);
+        } catch {
+          btn.textContent = 'Gagal salin';
+        }
+      });
+    }
+    bindCopy('copyWinBtn', 'winCmd', 'Salin Windows');
+    bindCopy('copyUnixBtn', 'unixCmd', 'Salin Linux/macOS');
+  </script>
+</body>
+</html>
